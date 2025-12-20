@@ -8,6 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AmenityCardComponent } from './components/amenity-card/amenity-card.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { AmenityCardComponent } from './components/amenity-card/amenity-card.com
     HomeComponent,
     NavbarComponent,
     SidebarComponent,
-    AmenityCardComponent
+    AmenityCardComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
