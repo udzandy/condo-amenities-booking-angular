@@ -7,9 +7,6 @@
     <nav>
       <a class="active">Home</a>
       <a>Amenity Booking</a>
-      <!-- <a>Events</a>
-      <a>Service Requests</a>
-      <a>Visitors</a> -->
     </nav>
   </aside>
 
@@ -18,7 +15,6 @@
 
     <!-- TOP BAR -->
     <header class="topbar">
-      <input type="text" placeholder="Quick Search" />
       <span class="user">Welcome, Chrisie</span>
     </header>
 
@@ -27,28 +23,10 @@
       <h1>Amenity Booking</h1>
     </div>
 
-    <!-- SEARCH PANEL -->
-    <div class="search-panel">
-      <select>
-        <option>General</option>
-        <option>BBQ</option>
-        <option>Function Room</option>
-        <option>Tennis Court</option>
-      </select>
-
-      <input type="date" />
-
-      <select>
-        <option>See Available Options</option>
-      </select>
-
-      <button>Book Now</button>
-    </div>
-
     <!-- AMENITY CARDS -->
     <div class="cards">
-      <div class="card" *ngFor="let item of amenities">
-        <img [src]="item.image" />
+      <div class="card" *ngFor="let item of amenities" (click)="goToBooking(item.route)">
+        <img [src]="item.image" alt="{{ item.name }}" />
         <h3>{{ item.name }}</h3>
         <p>{{ item.price }}</p>
       </div>
@@ -56,4 +34,3 @@
 
   </section>
 </div>
-
