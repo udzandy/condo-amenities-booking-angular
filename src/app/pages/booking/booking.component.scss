@@ -1,0 +1,34 @@
+.booking-page {
+  padding: 20px;
+}
+
+.date-section {
+  margin-bottom: 20px;
+}
+
+.unit-block {
+  margin-bottom: 20px;
+}
+
+.slots {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+}
+
+.available {
+  background: #e0f7f6;
+  color: #00796b;
+  cursor: pointer;
+}
+
+.unavailable {
+  background: #f2f2f2;
+  color: #aaa;
+  cursor: not-allowed;
+}

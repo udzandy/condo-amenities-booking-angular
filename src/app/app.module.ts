@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AmenityCardComponent } from './components/amenity-card/amenity-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { BookingComponent } from './pages/booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -17,11 +19,13 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     NavbarComponent,
     SidebarComponent,
     AmenityCardComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule
   ],
   providers: [],

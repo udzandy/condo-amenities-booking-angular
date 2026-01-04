@@ -1,0 +1,28 @@
+<div class="booking-page">
+
+  <h2>{{ currentAmenity.title }}</h2>
+
+  <!-- Date -->
+  <div class="date-section">
+    <label>Select Date</label>
+    <input type="date" [(ngModel)]="selectedDate" />
+  </div>
+
+  <!-- Units -->
+  <div *ngFor="let unit of currentAmenity.units" class="unit-block">
+
+    <h3>{{ currentAmenity.unitsLabel }} - {{ unit.name }}</h3>
+
+    <div class="slots">
+      <button
+        *ngFor="let slot of unit.slots"
+        [disabled]="!slot.available"
+        [class.available]="slot.available"
+        [class.unavailable]="!slot.available">
+        {{ slot.time }}
+      </button>
+    </div>
+
+  </div>
+
+</div>
