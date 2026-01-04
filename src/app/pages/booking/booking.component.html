@@ -2,27 +2,29 @@
 
   <h2>{{ currentAmenity.title }}</h2>
 
-  <!-- Date -->
   <div class="date-section">
-    <label>Select Date</label>
-    <input type="date" [(ngModel)]="selectedDate" />
+    <mat-card class="calendar-card">
+      <mat-calendar
+        [dateFilter]="dateFilter"
+        [dateClass]="dateClass"
+        [selected]="selectedDate"
+        (selectedChange)="onDateSelected($event)">
+      </mat-calendar>
+    </mat-card>
   </div>
 
   <!-- Units -->
   <div *ngFor="let unit of currentAmenity.units" class="unit-block">
-
     <h3>{{ currentAmenity.unitsLabel }} - {{ unit.name }}</h3>
-
     <div class="slots">
       <button
         *ngFor="let slot of unit.slots"
-        [disabled]="!slot.available"
-        [class.available]="slot.available"
-        [class.unavailable]="!slot.available">
+        [disabled]="isSlotBooked(selectedDate, unit.name, slot.time)"
+        [class.available]="!isSlotBooked(selectedDate, unit.name, slot.time)"
+        [class.unavailable]="isSlotBooked(selectedDate, unit.name, slot.time)">
         {{ slot.time }}
       </button>
     </div>
-
   </div>
 
 </div>
