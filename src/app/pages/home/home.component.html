@@ -1,1 +1,59 @@
-<p>home works!</p>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="logo">Condominium Amenity Bookings</h2>
+
+    <nav>
+      <a class="active">Home</a>
+      <a>Amenity Booking</a>
+      <!-- <a>Events</a>
+      <a>Service Requests</a>
+      <a>Visitors</a> -->
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <section class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <input type="text" placeholder="Quick Search" />
+      <span class="user">Welcome, Chrisie</span>
+    </header>
+
+    <!-- TITLE -->
+    <div class="title">
+      <h1>Amenity Booking</h1>
+    </div>
+
+    <!-- SEARCH PANEL -->
+    <div class="search-panel">
+      <select>
+        <option>General</option>
+        <option>BBQ</option>
+        <option>Function Room</option>
+        <option>Tennis Court</option>
+      </select>
+
+      <input type="date" />
+
+      <select>
+        <option>See Available Options</option>
+      </select>
+
+      <button>Book Now</button>
+    </div>
+
+    <!-- AMENITY CARDS -->
+    <div class="cards">
+      <div class="card" *ngFor="let item of amenities">
+        <img [src]="item.image" />
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.price }}</p>
+      </div>
+    </div>
+
+  </section>
+</div>
+
