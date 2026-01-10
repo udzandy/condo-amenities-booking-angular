@@ -19,10 +19,19 @@
     <h3>{{ currentAmenity.unitsLabel }} - {{ unit.name }}</h3>
 
     <div class="slots">
-      <button
+      <!-- <button
         *ngFor="let slot of unit.slots"
         [disabled]="isSlotBooked(selectedDate, unit.name, slot.time)"
         [class.available]="!isSlotBooked(selectedDate, unit.name, slot.time)"
+        [class.available]="isSelectedSlot(unit.name, slot.time)"
+        [class.unavailable]="isSlotBooked(selectedDate, unit.name, slot.time)"
+        (click)="selectSlot(unit.name, slot.time)">
+        {{ slot.time }}
+      </button> -->
+
+      <button
+        *ngFor="let slot of unit.slots"
+        [disabled]="isSlotBooked(selectedDate, unit.name, slot.time)"
         [class.available]="isSelectedSlot(unit.name, slot.time)"
         [class.unavailable]="isSlotBooked(selectedDate, unit.name, slot.time)"
         (click)="selectSlot(unit.name, slot.time)">

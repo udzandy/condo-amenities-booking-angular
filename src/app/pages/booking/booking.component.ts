@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingConfirmDialogComponent } from '../../components/booking-confirm-dialog/booking-confirm-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BookingService } from '../booking/booking.service';
 
 @Component({
   selector: 'app-booking',
@@ -14,6 +16,13 @@ export class BookingComponent implements OnInit {
   selectedDate: Date | null = null;
   currentAmenity: any;
   selectedSlot: { unit: string; time: string } | null = null;
+
+  constructor(
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private bookingService: BookingService
+  ) {}
 
   amenityConfig: any = {
 
@@ -122,10 +131,7 @@ export class BookingComponent implements OnInit {
   };
 
   
-  constructor(
-    private route: ActivatedRoute,
-    private dialog: MatDialog
-  ) {}
+  
 
   ngOnInit(): void {
     this.amenity = this.route.snapshot.paramMap.get('amenity')!;
@@ -171,13 +177,19 @@ export class BookingComponent implements OnInit {
 
   // -------------------
   // Check if a slot is booked for selectedDate
-  isSlotBooked(date: Date | null, unitName: string, slotTime: string): boolean {
+  isSlotBooked(date: Date | null, unit: string, time: string): boolean {
     if (!date) return true;
 
     const dateStr = this.formatDateLocal(date);
-    const bookedSlots = this.currentAmenity.bookedSlots[dateStr] || [];
+    //const bookedSlots = this.currentAmenity.bookedSlots[dateStr] || [];
 
-    return bookedSlots.some((b: any) => b.unit === unitName && b.time === slotTime);
+    //return bookedSlots.some((b: any) => b.unit === unitName && b.time === slotTime);
+
+    return (
+    this.currentAmenity.bookedSlots?.[dateStr]?.some(
+      (b: any) => b.unit === unit && b.time === time
+    ) || this.bookingService.isBooked(this.amenity, dateStr, unit, time)
+  );
   }
 
   // -------------------
@@ -212,18 +224,38 @@ export class BookingComponent implements OnInit {
   // -------------------
   openConfirmDialog() {
     const dialogRef = this.dialog.open(BookingConfirmDialogComponent, {
-      width: '400px',
+      width: '420px',
       data: {
-        date: this.selectedDate,
-        slot: this.selectedSlot
+        // date: this.selectedDate,
+        // slot: this.selectedSlot
+        amenityLabel: this.currentAmenity.unitsLabel,
+        unit: this.selectedSlot!.unit,
+        time: this.selectedSlot!.time,
+        date: this.selectedDate
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        alert('Booking confirmed!');
-        // TODO: Save booking to backend
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.saveBooking();
       }
     });
+  }
+
+  saveBooking() {
+    const dateStr = this.formatDateLocal(this.selectedDate!);
+
+    this.bookingService.saveBooking(this.amenity, dateStr, {
+      unit: this.selectedSlot!.unit,
+      time: this.selectedSlot!.time
+    });
+
+    this.snackBar.open('Booking confirmed successfully!', '', {
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right'
+    });
+
+    this.selectedSlot = null;
   }
 }

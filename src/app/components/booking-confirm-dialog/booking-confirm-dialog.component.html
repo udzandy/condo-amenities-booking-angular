@@ -2,14 +2,29 @@
 
 <mat-dialog-content>
 
-  <p><strong>Date</strong></p>
-  <mat-form-field appearance="outline" class="full">
+  <mat-form-field class="full">
+    <mat-label>Date</mat-label>
     <input matInput [value]="data.date | date:'fullDate'" disabled>
   </mat-form-field>
 
-  <p><strong>Time Slot</strong></p>
+  <!-- <p><strong>Date</strong></p>
+  <mat-form-field appearance="outline" class="full">
+    <input matInput [value]="data.date | date:'fullDate'" disabled>
+  </mat-form-field> -->
+
+  <mat-form-field class="full">
+    <mat-label>{{ data.amenityLabel }}</mat-label>
+    <input matInput [value]="data.unit" disabled>
+  </mat-form-field>
+
+  <!-- <p><strong>Time Slot</strong></p>
   <mat-form-field appearance="outline" class="full">
     <input matInput [value]="data.slot.time" disabled>
+  </mat-form-field> -->
+
+  <mat-form-field class="full">
+    <mat-label>Time Slot</mat-label>
+    <input matInput [value]="data.time" disabled>
   </mat-form-field>
 
   <mat-checkbox [(ngModel)]="accepted">
