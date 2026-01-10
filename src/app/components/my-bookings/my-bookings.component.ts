@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService, Booking } from '../../pages/booking/booking.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-my-bookings',
@@ -11,7 +12,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MyBookingsComponent implements OnInit {
   myBookings: Booking[] = [];
 
-  constructor(private bookingService: BookingService, private snackBar: MatSnackBar) {}
+  constructor(
+    private bookingService: BookingService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     // Add sample bookings for demo
@@ -45,39 +50,36 @@ export class MyBookingsComponent implements OnInit {
 
   cancelBooking(booking: Booking) {
     if (!this.canCancel(booking)) {
-      // this.snackBar.openFromComponent(SnackbarComponent, {
-      //   data: { icon: '⚠', message: 'Booking cannot be cancelled within 3 days.' },
-      //   duration: 4000,
-      //   verticalPosition: 'top',
-      //   horizontalPosition: 'center',
-      //   panelClass: ['snackbar-warning']
-      // });
-
       this.snackBar.open('⚠ Booking cannot be cancelled within 3 days.', '', {
-    duration: 3000,
-    verticalPosition: 'top',
-    horizontalPosition: 'right',
-    panelClass: ['snackbar-warning']
-  });
+      duration: 3000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+      panelClass: ['snackbar-warning']
+    });
       return;
     }
 
-    this.bookingService.cancelBooking(booking);
+    // Open confirmation dialog
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Confirm Cancellation',
+        message: `Are you sure you want to cancel your booking for ${booking.amenity.toUpperCase()} on ${booking.date}?`
+      }
+    });
 
-    // this.snackBar.openFromComponent(SnackbarComponent, {
-    //   data: { icon: '✔', message: 'Booking cancelled successfully!' },
-    //   duration: 3000,
-    //   verticalPosition: 'top',
-    //   horizontalPosition: 'center',
-    //   panelClass: ['snackbar-success']
-    // });
-
-    this.snackBar.open('✔ Booking cancelled successfully!', '', {
-    duration: 3000,
-    verticalPosition: 'top',
-    horizontalPosition: 'right',
-    panelClass: ['snackbar-success']
-  });
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.bookingService.cancelBooking(booking);
+        this.snackBar.open('✔ Booking cancelled successfully!', '', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right',
+          panelClass: ['snackbar-success']
+        });
+        this.loadBookings(); // Refresh list
+      }
+    });
 
     this.loadBookings(); // Refresh list
   }

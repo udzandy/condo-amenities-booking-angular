@@ -22,6 +22,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { BookingComponent } from './pages/booking/booking.component';
 import { BookingConfirmDialogComponent } from '../app/components/booking-confirm-dialog/booking-confirm-dialog.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MyBookingsComponent } from './components/my-bookings/my-bookings.compon
     SearchBarComponent,
     BookingComponent,
     BookingConfirmDialogComponent,
-    MyBookingsComponent
+    MyBookingsComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
