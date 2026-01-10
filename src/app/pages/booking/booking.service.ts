@@ -144,5 +144,9 @@ export class BookingService {
     const diff = (date.getTime() - firstDay.getTime()) / 86400000;
     return Math.ceil((diff + firstDay.getDay() + 1) / 7);
   }
+
+  clearBookings() {
+    this.bookings = [];
+  }
   
 }

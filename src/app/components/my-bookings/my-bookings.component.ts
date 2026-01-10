@@ -25,8 +25,8 @@ export class MyBookingsComponent implements OnInit {
   }
 
   addSampleBookings() {
-    // Clear existing bookings (optional)
-    // this.bookingService.clearBookings?.(); // if you implement a clear method
+    // Clear previous bookings first
+    this.bookingService.clearBookings();
 
     const sampleBookings: Booking[] = [
       { amenity: 'bbq', date: '2026-01-15', unit: 'Pit 1', time: '09:00 AM - 04:00 PM' },

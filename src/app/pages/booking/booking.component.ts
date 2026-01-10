@@ -134,12 +134,18 @@ export class BookingComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.amenity = this.route.snapshot.paramMap.get('amenity')!;
+  // Subscribe to route param changes
+  this.route.paramMap.subscribe(params => {
+    this.amenity = params.get('amenity')!;
     this.currentAmenity = this.amenityConfig[this.amenity];
 
     // Initialize selectedDate as today
     this.selectedDate = new Date();
-  }
+
+    // Reset selected slot
+    this.selectedSlot = null;
+  });
+}
 
   // -------------------
   // HELPER: format date to YYYY-MM-DD in LOCAL time (avoids timezone shift)
