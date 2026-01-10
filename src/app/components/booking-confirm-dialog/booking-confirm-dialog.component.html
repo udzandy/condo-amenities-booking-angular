@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Confirm Booking</h2>
+
+<mat-dialog-content>
+
+  <p><strong>Date</strong></p>
+  <mat-form-field appearance="outline" class="full">
+    <input matInput [value]="data.date | date:'fullDate'" disabled>
+  </mat-form-field>
+
+  <p><strong>Time Slot</strong></p>
+  <mat-form-field appearance="outline" class="full">
+    <input matInput [value]="data.slot.time" disabled>
+  </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="accepted">
+    I agree to the
+    <a href="#" target="_blank">Terms & Conditions</a>
+  </mat-checkbox>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!accepted"
+    (click)="confirm()">
+    Save
+  </button>
+</mat-dialog-actions>
