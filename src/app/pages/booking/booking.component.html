@@ -2,6 +2,7 @@
 
   <h2>{{ currentAmenity.title }}</h2>
 
+  <!-- DATE -->
   <div class="date-section">
     <mat-card class="calendar-card">
       <mat-calendar
@@ -13,18 +14,33 @@
     </mat-card>
   </div>
 
-  <!-- Units -->
+  <!-- UNITS & SLOTS -->
   <div *ngFor="let unit of currentAmenity.units" class="unit-block">
     <h3>{{ currentAmenity.unitsLabel }} - {{ unit.name }}</h3>
+
     <div class="slots">
       <button
         *ngFor="let slot of unit.slots"
         [disabled]="isSlotBooked(selectedDate, unit.name, slot.time)"
         [class.available]="!isSlotBooked(selectedDate, unit.name, slot.time)"
-        [class.unavailable]="isSlotBooked(selectedDate, unit.name, slot.time)">
+        [class.available]="isSelectedSlot(unit.name, slot.time)"
+        [class.unavailable]="isSlotBooked(selectedDate, unit.name, slot.time)"
+        (click)="selectSlot(unit.name, slot.time)">
         {{ slot.time }}
       </button>
     </div>
   </div>
 
+  <!-- BOOK BUTTON -->
+  <div class="book-btn">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!selectedDate || !selectedSlot"
+      (click)="openConfirmDialog()">
+      Book Now
+    </button>
+  </div>
+
 </div>
+

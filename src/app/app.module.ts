@@ -6,6 +6,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +19,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AmenityCardComponent } from './components/amenity-card/amenity-card.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BookingComponent } from './pages/booking/booking.component';
+import { BookingConfirmDialogComponent } from '../app/components/booking-confirm-dialog/booking-confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,8 @@ import { BookingComponent } from './pages/booking/booking.component';
     SidebarComponent,
     AmenityCardComponent,
     SearchBarComponent,
-    BookingComponent
+    BookingComponent,
+    BookingConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,10 @@ import { BookingComponent } from './pages/booking/booking.component';
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
