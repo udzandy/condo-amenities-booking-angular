@@ -243,19 +243,35 @@ export class BookingComponent implements OnInit {
   }
 
   saveBooking() {
-    const dateStr = this.formatDateLocal(this.selectedDate!);
+  const ruleCheck = this.bookingService.canBook(
+    this.amenity,
+    this.selectedDate!
+  );
 
-    this.bookingService.saveBooking(this.amenity, dateStr, {
-      unit: this.selectedSlot!.unit,
-      time: this.selectedSlot!.time
-    });
-
-    this.snackBar.open('Booking confirmed successfully!', '', {
-      duration: 3000,
+  if (!ruleCheck.allowed) {
+    this.snackBar.open(ruleCheck.message!, '', {
+      duration: 4000,
       verticalPosition: 'top',
-      horizontalPosition: 'right'
+      horizontalPosition: 'right',
+      panelClass: ['snackbar-warning']
     });
-
-    this.selectedSlot = null;
+    return;
   }
+
+  const dateStr = this.formatDateLocal(this.selectedDate!);
+
+  this.bookingService.saveBooking(this.amenity, dateStr, {
+    unit: this.selectedSlot!.unit,
+    time: this.selectedSlot!.time
+  });
+
+  this.snackBar.open('Booking confirmed successfully!', '', {
+    duration: 3000,
+    verticalPosition: 'top',
+    horizontalPosition: 'right',
+    panelClass: ['snackbar-success']
+  });
+
+  this.selectedSlot = null;
+}
 }
