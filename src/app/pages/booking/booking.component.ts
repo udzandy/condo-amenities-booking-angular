@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingConfirmDialogComponent } from '../../components/booking-confirm-dialog/booking-confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BookingService } from '../booking/booking.service';
+import { Booking, BookingService } from '../booking/booking.service';
 
 @Component({
   selector: 'app-booking',
@@ -260,10 +260,19 @@ export class BookingComponent implements OnInit {
 
   const dateStr = this.formatDateLocal(this.selectedDate!);
 
-  this.bookingService.saveBooking(this.amenity, dateStr, {
+  const booking: Booking = {
+    amenity: this.amenity,
+    date: dateStr,
     unit: this.selectedSlot!.unit,
     time: this.selectedSlot!.time
-  });
+  };
+
+  this.bookingService.saveBooking(booking);
+
+  // this.bookingService.saveBooking(this.amenity, dateStr, {
+  //   unit: this.selectedSlot!.unit,
+  //   time: this.selectedSlot!.time
+  // });
 
   this.snackBar.open('Booking confirmed successfully!', '', {
     duration: 3000,

@@ -1,36 +1,75 @@
 import { Injectable } from '@angular/core';
 
+export interface Booking {
+  amenity: string;
+  date: string;    // YYYY-MM-DD
+  unit: string;    // Pit / Room / Court
+  time: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class BookingService {
 
   // Structure:
   // bookings[amenity][date] = [{ unit, time }]
-  private bookings: any = {};
+//   private bookings: any = {};
+  private bookings: Booking[] = [];
 
-  saveBooking(amenity: string, date: string, booking: any) {
-    if (!this.bookings[amenity]) {
-      this.bookings[amenity] = {};
-    }
+//   saveBooking(amenity: string, date: string, booking: any) {
+//     if (!this.bookings[amenity]) {
+//       this.bookings[amenity] = {};
+//     }
 
-    if (!this.bookings[amenity][date]) {
-      this.bookings[amenity][date] = [];
-    }
+//     if (!this.bookings[amenity][date]) {
+//       this.bookings[amenity][date] = [];
+//     }
 
-    this.bookings[amenity][date].push(booking);
+//     this.bookings[amenity][date].push(booking);
+//   }
+
+  // Save booking
+  saveBooking(booking: Booking) {
+    this.bookings.push(booking);
   }
 
-  // ---------------------------
-  getAllBookingsForAmenity(amenity: string) {
-    return this.bookings[amenity] || {};
+  // Get bookings for the current account (single user for now)
+  getMyBookings(): Booking[] {
+    return this.bookings.sort((a, b) => (a.date > b.date ? 1 : -1));
+  }
+
+  // Check if booking can be cancelled (3 days prior)
+  canCancel(booking: Booking): boolean {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const bookingDate = new Date(booking.date);
+    bookingDate.setHours(0, 0, 0, 0);
+
+    const diffDays = Math.floor((bookingDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    return diffDays >= 3; // can cancel if 3 or more days left
+  }
+
+  // Cancel booking
+  cancelBooking(booking: Booking) {
+    this.bookings = this.bookings.filter(
+      b =>
+        !(b.amenity === booking.amenity &&
+          b.date === booking.date &&
+          b.unit === booking.unit &&
+          b.time === booking.time)
+    );
+  }
+
+  // Get all bookings for a specific amenity
+  getAllBookingsForAmenity(amenity: string): Booking[] {
+    return this.bookings.filter(b => b.amenity === amenity);
   }
 
 
-  // ---------------------------
+  // Check if a slot is already booked
   isBooked(amenity: string, date: string, unit: string, time: string): boolean {
-    return (
-      this.bookings[amenity]?.[date]?.some(
-        (b: any) => b.unit === unit && b.time === time
-      ) || false
+    return this.bookings.some(
+      b => b.amenity === amenity && b.date === date && b.unit === unit && b.time === time
     );
   }
 
@@ -58,7 +97,8 @@ export class BookingService {
           date.getFullYear() === year &&
           date.getMonth() === month
         ) {
-          count += allBookings[dateStr].length;
+        //   count += allBookings[dateStr].length;
+            count++;
         }
       }
 
@@ -67,7 +107,8 @@ export class BookingService {
           this.getWeekNumber(date) === week &&
           date.getFullYear() === year
         ) {
-          count += allBookings[dateStr].length;
+        //   count += allBookings[dateStr].length;
+          count++;
         }
       }
     }

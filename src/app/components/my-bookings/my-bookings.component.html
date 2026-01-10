@@ -1,0 +1,36 @@
+<div class="my-bookings-page">
+  <h2>My Bookings</h2>
+
+  <table class="booking-table" *ngIf="myBookings.length > 0; else noBookings">
+    <thead>
+      <tr>
+        <th>Amenity</th>
+        <th>Unit</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of myBookings">
+        <td>{{ booking.amenity | titlecase }}</td>
+        <td>{{ booking.unit }}</td>
+        <td>{{ booking.date }}</td>
+        <td>{{ booking.time }}</td>
+        <td>
+          <button 
+            mat-raised-button 
+            color="warn" 
+            [disabled]="!canCancel(booking)" 
+            (click)="cancelBooking(booking)">
+            Cancel
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noBookings>
+    <p>You have no bookings.</p>
+  </ng-template>
+</div>

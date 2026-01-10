@@ -21,6 +21,7 @@ import { AmenityCardComponent } from './components/amenity-card/amenity-card.com
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BookingComponent } from './pages/booking/booking.component';
 import { BookingConfirmDialogComponent } from '../app/components/booking-confirm-dialog/booking-confirm-dialog.component';
+import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BookingConfirmDialogComponent } from '../app/components/booking-confirm
     AmenityCardComponent,
     SearchBarComponent,
     BookingComponent,
-    BookingConfirmDialogComponent
+    BookingConfirmDialogComponent,
+    MyBookingsComponent
   ],
   imports: [
     BrowserModule,
