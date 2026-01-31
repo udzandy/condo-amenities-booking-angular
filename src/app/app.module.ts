@@ -27,6 +27,8 @@ import { MyBookingsComponent } from './components/my-bookings/my-bookings.compon
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { RegistrationSuccessDialogComponent } from './components/registration-success-dialog/registration-success-dialog.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { RegistrationSuccessDialogComponent } from './components/registration-su
     MyBookingsComponent,
     ConfirmDialogComponent,
     RegistrationComponent,
-    RegistrationSuccessDialogComponent
+    RegistrationSuccessDialogComponent,
+    LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     ReactiveFormsModule,

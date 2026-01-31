@@ -17,7 +17,7 @@ export class RegistrationSuccessDialogComponent {
 
   close() {
     this.dialogRef.close();
-    this.router.navigate(['/']); // redirect to home
+    this.router.navigate(['/login']); // redirect to login
   }
 }
 
