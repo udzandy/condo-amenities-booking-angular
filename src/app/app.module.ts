@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,8 @@ import { BookingComponent } from './pages/booking/booking.component';
 import { BookingConfirmDialogComponent } from '../app/components/booking-confirm-dialog/booking-confirm-dialog.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { RegistrationComponent } from './pages/registration/registration.component';
+import { RegistrationSuccessDialogComponent } from './components/registration-success-dialog/registration-success-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +39,13 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     BookingComponent,
     BookingConfirmDialogComponent,
     MyBookingsComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    RegistrationComponent,
+    RegistrationSuccessDialogComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    MatSelectModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

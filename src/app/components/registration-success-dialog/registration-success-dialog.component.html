@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Thank you {{ data.firstName }}</h2>
+
+<mat-dialog-content>
+  <p>You have successfully submitted your application.</p>
+
+  <p>
+    The Management may take a few days to process your application.
+  </p>
+
+  <p>
+    Once your application is approved you will receive an email.
+  </p>
+
+  <p>
+    Kindly contact the Management if you would like to check the status
+    of your application.
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">OK</button>
+</mat-dialog-actions>
+
