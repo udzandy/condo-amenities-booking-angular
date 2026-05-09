@@ -29,6 +29,7 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { RegistrationSuccessDialogComponent } from './components/registration-success-dialog/registration-success-dialog.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     MatDialogModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

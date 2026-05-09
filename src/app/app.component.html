@@ -6,7 +6,7 @@
   <aside class="sidebar">
     <h2 class="logo">Condominium Amenity Bookings</h2>
 
-    <nav>
+    <nav *ngIf="this.showLayout">
       <a routerLink="/amenities" routerLinkActive="active">Amenity Booking</a>
       <a routerLink="/booking/bbq" routerLinkActive="active">BBQ</a>
       <a routerLink="/booking/function-room" routerLinkActive="active">Function Room</a>
@@ -14,14 +14,23 @@
       <a routerLink="/my-bookings" routerLinkActive="active">My Bookings</a>
       <a routerLink="/register" routerLinkActive="active">Register</a>
     </nav>
+
+    <!-- LOGOUT BUTTON -->
+    <div class="sidebar-bottom" *ngIf="this.showLayout">
+
+      <button class="logout-btn" (click)="logout()">
+        Logout
+      </button>
+
+    </div>
   </aside>
 
   <!-- MAIN -->
   <section class="main">
 
     <!-- TOP BAR -->
-    <header class="topbar">
-      <span class="user">Welcome, Chrisie</span>
+    <header class="topbar" *ngIf="this.showLayout">
+      <span class="user">Welcome, {{this.userName}}</span>
     </header>
 
     <!-- PAGE CONTENT (CHANGES HERE) -->

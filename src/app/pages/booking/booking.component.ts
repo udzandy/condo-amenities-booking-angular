@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingConfirmDialogComponent } from '../../components/booking-confirm-dialog/booking-confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Booking, BookingService } from '../booking/booking.service';
+// import { Booking, BookingService } from '../booking/booking.service';
+import { BookingService } from '../booking/booking.service';
 
 @Component({
   selector: 'app-booking',
@@ -194,7 +195,7 @@ export class BookingComponent implements OnInit {
     return (
     this.currentAmenity.bookedSlots?.[dateStr]?.some(
       (b: any) => b.unit === unit && b.time === time
-    ) || this.bookingService.isBooked(this.amenity, dateStr, unit, time)
+    ) //|| this.bookingService.isBooked(this.amenity, dateStr, unit, time)
   );
   }
 
@@ -249,44 +250,44 @@ export class BookingComponent implements OnInit {
   }
 
   saveBooking() {
-  const ruleCheck = this.bookingService.canBook(
-    this.amenity,
-    this.selectedDate!
-  );
+  // const ruleCheck = this.bookingService.canBook(
+  //   this.amenity,
+  //   this.selectedDate!
+  // );
 
-  if (!ruleCheck.allowed) {
-    this.snackBar.open(ruleCheck.message!, '', {
-      duration: 4000,
-      verticalPosition: 'top',
-      horizontalPosition: 'right',
-      panelClass: ['snackbar-warning']
-    });
+  // if (!ruleCheck.allowed) {
+  //   this.snackBar.open(ruleCheck.message!, '', {
+  //     duration: 4000,
+  //     verticalPosition: 'top',
+  //     horizontalPosition: 'right',
+  //     panelClass: ['snackbar-warning']
+  //   });
     return;
   }
 
-  const dateStr = this.formatDateLocal(this.selectedDate!);
+  // const dateStr = this.formatDateLocal(this.selectedDate!);
 
-  const booking: Booking = {
-    amenity: this.amenity,
-    date: dateStr,
-    unit: this.selectedSlot!.unit,
-    time: this.selectedSlot!.time
-  };
+  // const booking: Booking = {
+  //   amenity: this.amenity,
+  //   date: dateStr,
+  //   unit: this.selectedSlot!.unit,
+  //   time: this.selectedSlot!.time
+  // };
 
-  this.bookingService.saveBooking(booking);
+  // this.bookingService.saveBooking(booking);
 
   // this.bookingService.saveBooking(this.amenity, dateStr, {
   //   unit: this.selectedSlot!.unit,
   //   time: this.selectedSlot!.time
   // });
 
-  this.snackBar.open('Booking confirmed successfully!', '', {
-    duration: 3000,
-    verticalPosition: 'top',
-    horizontalPosition: 'right',
-    panelClass: ['snackbar-success']
-  });
+  // this.snackBar.open('Booking confirmed successfully!', '', {
+  //   duration: 3000,
+  //   verticalPosition: 'top',
+  //   horizontalPosition: 'right',
+  //   panelClass: ['snackbar-success']
+  // });
 
-  this.selectedSlot = null;
-}
+  // this.selectedSlot = null;
+// }
 }

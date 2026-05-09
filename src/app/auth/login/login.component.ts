@@ -18,13 +18,40 @@ export class LoginComponent {
   ) {}
 
   login() {
-    const isValid = this.authService.login(this.email, this.password);
+    // const isValid = this.authService.login(this.email, this.password);
 
-    if (isValid) {
-      this.router.navigate(['/home']);
-    } else {
-      alert('Entered email or password incorrect');
-      // Do NOT clear fields
-    }
+    // if (isValid) {
+    //   this.router.navigate(['/home']);
+    // } else {
+    //   alert('Entered email or password incorrect');
+    //   // Do NOT clear fields
+    // }
+
+    this.authService.login(this.email, this.password)
+    .subscribe({
+
+      next: (response) => {
+
+        // Navigate by role
+        if (response.role === 'Admin') {
+
+          this.router.navigate(['/admin']);
+
+        } else {
+
+          this.router.navigate(['/home']);
+        }
+
+      },
+
+      error: (err) => {
+
+        alert('Invalid email or password');
+
+        console.log(err);
+
+      }
+
+    });
   }
 }
