@@ -176,7 +176,7 @@ export class MyBookingsComponent implements OnInit {
         data: {
           title: 'Confirm Cancellation',
           message:
-            `Are you sure you want to cancel booking for ${booking.amenity}?`
+            `Are you sure you want to cancel booking for ${booking.amenityName}?`
         }
       });
 

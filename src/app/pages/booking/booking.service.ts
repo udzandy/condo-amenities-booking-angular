@@ -192,7 +192,7 @@ export class BookingService {
   // CHECK CANCELLATION RULE
   canCancel(booking: Booking): boolean {
 
-    const bookingDate = new Date(booking.date);
+    const bookingDate = new Date(booking.bookingDate);
 
     const today = new Date();
 
