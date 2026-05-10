@@ -6,6 +6,7 @@ import { MyBookingsComponent } from './components/my-bookings/my-bookings.compon
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'amenities', component: HomeComponent },
   { path: 'booking/:amenity', component: BookingComponent },
   { path: 'my-bookings', component: MyBookingsComponent },
-  { path: 'register', component: RegistrationComponent }
+  { path: 'register', component: RegistrationComponent },
+  {path: 'admin-dashboard', component: AdminDashboardComponent }
 ];
 
 @NgModule({

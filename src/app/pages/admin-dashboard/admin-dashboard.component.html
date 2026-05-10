@@ -1,0 +1,128 @@
+<div class="dashboard">
+
+  <h1 class="page-title">
+    Admin Dashboard
+  </h1>
+
+  <!-- SUMMARY CARDS -->
+
+  <div class="summary-grid">
+
+    <mat-card class="summary-card">
+
+      <h2>Total Users</h2>
+
+      <p>{{ summary?.totalUsers }}</p>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+      <h2>Total Bookings</h2>
+
+      <p>{{ summary?.totalBookings }}</p>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+      <h2>Active Amenities</h2>
+
+      <p>{{ summary?.activeAmenities }}</p>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+      <h2>Today's Bookings</h2>
+
+      <p>{{ summary?.todayBookings }}</p>
+
+    </mat-card>
+
+  </div>
+
+  <!-- RECENT BOOKINGS -->
+
+  <mat-card class="table-card">
+
+    <h2>Recent Bookings</h2>
+
+    <table class="dashboard-table">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Amenity</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr
+          *ngFor="let booking of recentBookings">
+
+          <td>{{ booking.bookingId }}</td>
+
+          <td>{{ booking.userName }}</td>
+
+          <td>{{ booking.amenityName }}</td>
+
+          <td>{{ booking.bookingDate | date }}</td>
+
+          <td>{{ booking.status }}</td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </mat-card>
+
+  <!-- AUDIT LOGS -->
+
+  <mat-card class="table-card">
+
+    <h2>Recent Audit Logs</h2>
+
+    <table class="dashboard-table">
+
+      <thead>
+
+        <tr>
+          <th>User</th>
+          <th>Action</th>
+          <th>Details</th>
+          <th>Date</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr
+          *ngFor="let log of auditLogs">
+
+          <td>{{ log.userName }}</td>
+
+          <td>{{ log.action }}</td>
+
+          <td>{{ log.details }}</td>
+
+          <td>
+            {{ log.createdAt | date:'short' }}
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </mat-card>
+
+</div>

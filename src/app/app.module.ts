@@ -30,6 +30,8 @@ import { RegistrationSuccessDialogComponent } from './components/registration-su
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegistrationComponent,
     RegistrationSuccessDialogComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    AdminDashboardComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -64,7 +67,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatCheckboxModule,
     MatButtonModule,
     MatSnackBarModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
