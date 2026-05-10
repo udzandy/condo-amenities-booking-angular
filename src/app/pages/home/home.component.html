@@ -20,7 +20,7 @@
 
     <!-- TITLE -->
     <div class="title">
-      <h1>Amenity Booking</h1>
+      <h2>Amenity Booking</h2>
     </div>
 
     <!-- AMENITY CARDS -->
@@ -28,7 +28,7 @@
       <div class="card" *ngFor="let item of amenities" (click)="goToBooking(item.routePath)">
         <img [src]="item.imagePath" alt="{{ item.name }}" />
         <h3>{{ item.name }}</h3>
-        <p>{{ item.price }}</p>
+        <p>${{ item.price }} / Per Session</p>
       </div>
     </div>
 

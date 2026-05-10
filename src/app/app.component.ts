@@ -21,8 +21,6 @@ export class AppComponent {
     // this.userName = this.authService.getUserName();
     // this.showLayout = this.authService.isLoggedIn();
 
-    this.isAdminRole = this.authService.getRole() === "Admin"
-
     // LISTEN ROUTE CHANGES
     this.router.events.subscribe(event => {
 
@@ -32,13 +30,12 @@ export class AppComponent {
         const isLoginPage = event.url === '/login';
 
         // SHOW/HIDE LAYOUT
-        this.showLayout =
-          !isLoginPage &&
-          this.authService.isLoggedIn();
+        this.showLayout = !isLoginPage && this.authService.isLoggedIn();
 
         // REFRESH USER NAME
-        this.userName =
-          this.authService.getUserName();
+        this.userName = this.authService.getUserName();
+
+        this.isAdminRole = this.authService.getRole() === "Admin"
       }
 
     });

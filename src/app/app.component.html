@@ -11,10 +11,10 @@
       <a routerLink="/booking/bbq" routerLinkActive="active">BBQ</a>
       <a routerLink="/booking/function-room" routerLinkActive="active">Function Room</a>
       <a routerLink="/booking/tennis-court" routerLinkActive="active">Tennis Court</a>
-      <a routerLink="/my-bookings" routerLinkActive="active">My Bookings</a>
-      <a routerLink="/register" routerLinkActive="active">Register</a>
-      <a routerLink="/admin-dashboard" routerLinkActive="active"> Admin Dashboard </a>
-      <a routerLink="/admin-amenity-config" routerLinkActive="active"> Amenity Configuration </a>
+      <a routerLink="/my-bookings" routerLinkActive="active">Bookings</a>
+      <a routerLink="/register" routerLinkActive="active" *ngIf="this.isAdminRole">Register</a>
+      <a routerLink="/admin-dashboard" routerLinkActive="active" *ngIf="this.isAdminRole"> Admin Dashboard </a>
+      <a routerLink="/admin-amenity-config" routerLinkActive="active" *ngIf="this.isAdminRole"> Amenity Configuration </a>
     </nav>
 
     <!-- LOGOUT BUTTON -->
