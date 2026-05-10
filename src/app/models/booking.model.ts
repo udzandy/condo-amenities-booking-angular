@@ -7,3 +7,29 @@ export interface Booking {
   status: string;
   canCancel: boolean;
 }
+
+export interface TimeSlot {
+  slotId: number;
+  time: string;
+  available: boolean;
+  isBooked: boolean;
+}
+
+export interface AmenityUnit {
+  unitId: number;
+  name: string;
+  slots: TimeSlot[];
+}
+
+export interface BookedSlot {
+  unit: string;
+  time: string;
+}
+
+export interface AmenityBookingConfig {
+  amenityId: number;
+  title: string;
+  unitsLabel: string;
+  units: AmenityUnit[];
+  bookedSlots: Record<string, BookedSlot[]>;
+}

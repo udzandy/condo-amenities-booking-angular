@@ -156,7 +156,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Booking } from '../../models/booking.model';
+import { AmenityBookingConfig, Booking } from '../../models/booking.model';
+import { CreateBookingRequest } from 'src/app/models/create-booking.model';
+import { ApiResponse } from 'src/app/models/api-response .model';
 
 @Injectable({
   providedIn: 'root'
@@ -164,6 +166,7 @@ import { Booking } from '../../models/booking.model';
 export class BookingService {
 
   private apiUrl = 'https://localhost:7288/api/bookings';
+  private amenityApiUrl = 'https://localhost:7288/api/amenities';
 
   constructor(private http: HttpClient) { }
 
@@ -177,9 +180,9 @@ export class BookingService {
   }
 
   // CANCEL BOOKING
-  cancelBooking(bookingId: number, userId: string): Observable<any> {
+  cancelBooking(bookingId: number, userId: string): Observable<ApiResponse> {
 
-    return this.http.post(
+    return this.http.post<ApiResponse>(
       `${this.apiUrl}/cancel`,
       {
         bookingId: bookingId,
@@ -201,5 +204,27 @@ export class BookingService {
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
 
     return diffDays >= 3;
+  }
+
+  getAmenityBookingConfig(amenity: string, date: string) {
+    // var amenityApiUrl = 'https://localhost:7288/api/amenities';
+    return this.http.get<AmenityBookingConfig>(`${this.amenityApiUrl}/${amenity}/booking-config`,
+      {
+        params: { date }
+      }
+    );
+  }
+
+  createBooking(payload: CreateBookingRequest): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(
+      `${this.apiUrl}/create`,
+      payload
+    );
+  }
+
+  getAvailability(amenitySlug: string, bookingDate: string): Observable<any> {
+
+    return this.http.get<any>(`${this.amenityApiUrl}/${amenitySlug}/availability?bookingDate=${bookingDate}`);
+
   }
 }

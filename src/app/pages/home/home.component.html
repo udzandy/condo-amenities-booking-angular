@@ -25,8 +25,8 @@
 
     <!-- AMENITY CARDS -->
     <div class="cards">
-      <div class="card" *ngFor="let item of amenities" (click)="goToBooking(item.route)">
-        <img [src]="item.image" alt="{{ item.name }}" />
+      <div class="card" *ngFor="let item of amenities" (click)="goToBooking(item.routePath)">
+        <img [src]="item.imagePath" alt="{{ item.name }}" />
         <h3>{{ item.name }}</h3>
         <p>{{ item.price }}</p>
       </div>

@@ -148,26 +148,26 @@ export class MyBookingsComponent implements OnInit {
 
   }
 
-  canCancel(booking: Booking): boolean {
+  // canCancel(booking: Booking): boolean {
 
-    return this.bookingService.canCancel(booking);
+  //   return this.bookingService.canCancel(booking);
 
-  }
+  // }
 
   cancelBooking(booking: Booking) {
 
-    if (!this.canCancel(booking)) {
+    // if (!this.canCancel(booking)) {
 
-      this.snackBar.open(
-        '⚠ Booking cannot be cancelled within 3 days.',
-        '',
-        {
-          duration: 3000,
-          panelClass: ['snackbar-warning']
-        });
+    //   this.snackBar.open(
+    //     '⚠ Booking cannot be cancelled within 3 days.',
+    //     '',
+    //     {
+    //       duration: 3000,
+    //       panelClass: ['snackbar-warning']
+    //     });
 
-      return;
-    }
+    //   return;
+    // }
 
     const dialogRef = this.dialog.open(
       ConfirmDialogComponent,
@@ -188,10 +188,10 @@ export class MyBookingsComponent implements OnInit {
           .cancelBooking(booking.bookingId, this.userId)
           .subscribe({
 
-            next: () => {
+            next: (response) => {
 
               this.snackBar.open(
-                'Booking cancelled successfully!',
+                response.message,
                 '',
                 {
                   duration: 3000,
@@ -208,7 +208,7 @@ export class MyBookingsComponent implements OnInit {
               console.log(err);
 
               this.snackBar.open(
-                'Failed to cancel booking',
+                err?.error?.message || 'Failed to cancel booking',
                 '',
                 {
                   duration: 3000
