@@ -35,7 +35,7 @@
         *ngFor="let slot of unit.slots"
         [disabled]="!slot.available"
         [class.available]="isSelectedSlot(unit.name, slot.time)"
-        [class.unavailable]="isSlotBooked(selectedDate, unit.name, slot.time)"
+        [class.unavailable]="!slot.available"
         (click)="selectSlot(unit, slot)">
         {{ slot.time }}
       </button>

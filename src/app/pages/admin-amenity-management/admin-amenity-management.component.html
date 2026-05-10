@@ -1,0 +1,264 @@
+<div class="config-page">
+
+  <h1 class="page-title">
+    Amenity Configuration
+  </h1>
+
+  <!-- ===================================================== -->
+  <!-- AMENITIES -->
+  <!-- ===================================================== -->
+
+  <mat-card class="config-card">
+
+    <div class="card-header">
+      <h2>Amenities</h2>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openAmenityDialog()">
+
+        <mat-icon>add</mat-icon>
+        Add Amenity
+
+      </button>
+    </div>
+
+    <table class="config-table">
+
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Route</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let amenity of amenities">
+
+          <td>
+            <img
+              [src]="amenity.imagePath"
+              class="thumb">
+          </td>
+
+          <td>{{ amenity.name }}</td>
+
+          <td>{{ amenity.price }}</td>
+
+          <td>{{ amenity.routePath }}</td>
+
+          <td>
+            <span
+              [class.active]="amenity.isActive"
+              [class.inactive]="!amenity.isActive">
+
+              {{ amenity.isActive ? 'Active' : 'Inactive' }}
+
+            </span>
+          </td>
+
+          <td class="action-column">
+
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="openAmenityDialog(amenity)">
+
+              <mat-icon>edit</mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteAmenity(amenity)">
+
+              <mat-icon>delete</mat-icon>
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </mat-card>
+
+  <!-- ===================================================== -->
+  <!-- UNITS -->
+  <!-- ===================================================== -->
+
+  <mat-card class="config-card">
+
+    <div class="card-header">
+
+      <h2>Amenity Units</h2>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openUnitDialog()">
+
+        <mat-icon>add</mat-icon>
+        Add Unit
+
+      </button>
+
+    </div>
+
+    <table class="config-table">
+
+      <thead>
+        <tr>
+          <th>Amenity</th>
+          <th>Unit Name</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let unit of units">
+
+          <td>{{ unit.amenityName }}</td>
+
+          <td>{{ unit.unitName }}</td>
+
+          <td>
+            <span
+              [class.active]="unit.isActive"
+              [class.inactive]="!unit.isActive">
+
+              {{ unit.isActive ? 'Active' : 'Inactive' }}
+
+            </span>
+          </td>
+
+          <td class="action-column">
+
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="openUnitDialog(unit)">
+
+              <mat-icon>edit</mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteUnit(unit)">
+
+              <mat-icon>delete</mat-icon>
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </mat-card>
+
+  <!-- ===================================================== -->
+  <!-- TIMESLOTS -->
+  <!-- ===================================================== -->
+
+  <mat-card class="config-card">
+
+    <div class="card-header">
+
+      <h2>Amenity Time Slots</h2>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openSlotDialog()">
+
+        <mat-icon>add</mat-icon>
+        Add Slot
+
+      </button>
+
+    </div>
+
+    <table class="config-table">
+
+      <thead>
+        <tr>
+          <th>Amenity</th>
+          <th>Unit</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let slot of slots">
+
+          <td>{{ slot.amenityName }}</td>
+
+          <td>{{ slot.unitName }}</td>
+
+          <td>{{ slot.startTime }}</td>
+
+          <td>{{ slot.endTime }}</td>
+
+          <td>
+            <span
+              [class.active]="slot.isActive"
+              [class.inactive]="!slot.isActive">
+
+              {{ slot.isActive ? 'Active' : 'Inactive' }}
+
+            </span>
+          </td>
+
+          <td class="action-column">
+
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="openSlotDialog(slot)">
+
+              <mat-icon>edit</mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteSlot(slot)">
+
+              <mat-icon>delete</mat-icon>
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </mat-card>
+
+</div>

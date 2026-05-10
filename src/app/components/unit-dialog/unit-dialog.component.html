@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>
+  {{ data ? 'Edit Unit' : 'Add Unit' }}
+</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>Amenity</mat-label>
+
+    <mat-select [(ngModel)]="model.amenityId">
+
+      <mat-option
+        *ngFor="let amenity of amenities"
+        [value]="amenity.amenityId">
+
+        {{ amenity.name }}
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>Unit Name</mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="model.unitName">
+
+  </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="model.isActive">
+    Active
+  </mat-checkbox>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    mat-dialog-close>
+
+    Cancel
+
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="save()">
+
+    Save
+
+  </button>
+
+</mat-dialog-actions>

@@ -1,0 +1,23 @@
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 400px;
+  padding-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  padding-top: 10px;
+}
+
+mat-dialog-actions {
+  padding-top: 16px;
+}
+
+button[mat-raised-button] {
+  min-width: 100px;
+}

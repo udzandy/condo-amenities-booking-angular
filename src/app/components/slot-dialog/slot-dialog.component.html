@@ -1,0 +1,92 @@
+<h2 mat-dialog-title>
+  {{ data?.item ? 'Edit Slot' : 'Add Slot' }}
+</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>Amenity</mat-label>
+
+    <mat-select
+      [(ngModel)]="selectedAmenityId"
+      (selectionChange)="filterUnits()">
+
+      <mat-option
+        *ngFor="let amenity of amenities"
+        [value]="amenity.amenityId">
+
+        {{ amenity.name }}
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>Unit</mat-label>
+
+    <mat-select [(ngModel)]="model.unitId">
+
+      <mat-option
+        *ngFor="let unit of filteredUnits"
+        [value]="unit.unitId">
+
+        {{ unit.unitName }}
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>Start Time</mat-label>
+
+    <input
+      matInput
+      type="time"
+      [(ngModel)]="model.startTime">
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+
+    <mat-label>End Time</mat-label>
+
+    <input
+      matInput
+      type="time"
+      [(ngModel)]="model.endTime">
+
+  </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="model.isActive">
+    Active
+  </mat-checkbox>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    mat-dialog-close>
+
+    Cancel
+
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="save()">
+
+    Save
+
+  </button>
+
+</mat-dialog-actions>

@@ -32,6 +32,11 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { HttpClientModule } from '@angular/common/http';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { CommonModule } from '@angular/common';
+import { AdminAmenityManagementComponent } from './pages/admin-amenity-management/admin-amenity-management.component';
+import { MatIconModule } from '@angular/material/icon';
+import { AmenityDialogComponent } from './components/amenity-dialog/amenity-dialog.component';
+import { UnitDialogComponent } from './components/unit-dialog/unit-dialog.component';
+import { SlotDialogComponent } from './components/slot-dialog/slot-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,11 @@ import { CommonModule } from '@angular/common';
     RegistrationSuccessDialogComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    AdminAmenityManagementComponent,
+    AmenityDialogComponent,
+    UnitDialogComponent,
+    SlotDialogComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -68,7 +77,8 @@ import { CommonModule } from '@angular/common';
     MatButtonModule,
     MatSnackBarModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

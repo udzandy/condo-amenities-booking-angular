@@ -12,6 +12,7 @@ export class AppComponent {
 
   userName = '';
   showLayout = true;
+  isAdminRole = false;
   
     constructor(private authService: AuthService, private router: Router) {}
 
@@ -19,6 +20,8 @@ export class AppComponent {
 
     // this.userName = this.authService.getUserName();
     // this.showLayout = this.authService.isLoggedIn();
+
+    this.isAdminRole = this.authService.getRole() === "Admin"
 
     // LISTEN ROUTE CHANGES
     this.router.events.subscribe(event => {

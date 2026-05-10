@@ -1,0 +1,44 @@
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 420px;
+  padding-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.time-row {
+  display: flex;
+  gap: 16px;
+}
+
+.time-field {
+  flex: 1;
+}
+
+mat-dialog-content {
+  padding-top: 10px;
+}
+
+mat-dialog-actions {
+  padding-top: 16px;
+}
+
+button[mat-raised-button] {
+  min-width: 100px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+  .dialog-form {
+    min-width: 100%;
+  }
+
+  .time-row {
+    flex-direction: column;
+  }
+}
