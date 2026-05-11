@@ -9,7 +9,7 @@
     <mat-label>Amenity</mat-label>
 
     <mat-select
-      [(ngModel)]="selectedAmenityId"
+      [(ngModel)]="model.amenityId"
       (selectionChange)="filterUnits()">
 
       <mat-option
@@ -31,10 +31,10 @@
     <mat-select [(ngModel)]="model.unitId">
 
       <mat-option
-        *ngFor="let unit of filteredUnits"
+        *ngFor="let unit of units"
         [value]="unit.unitId">
 
-        {{ unit.unitName }}
+        {{ unit.name }}
 
       </mat-option>
 

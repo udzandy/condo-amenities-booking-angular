@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AmenityDialogComponent } from 'src/app/components/amenity-dialog/amenity-dialog.component';
 import { SlotDialogComponent } from 'src/app/components/slot-dialog/slot-dialog.component';
 import { UnitDialogComponent } from 'src/app/components/unit-dialog/unit-dialog.component';
+import { AdminAmenityManagementService } from './admin-amenity-management.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-amenity-management',
@@ -17,19 +19,21 @@ export class AdminAmenityManagementComponent implements OnInit {
 
   slots: any[] = [];
 
-  constructor(
-    private dialog: MatDialog
-  ) {}
+  constructor(private service: AdminAmenityManagementService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
 
-    this.loadAmenities();
-
-    this.loadUnits();
-
-    this.loadSlots();
+    this.loadAll();
 
   }
+
+  loadAll(): void {
+
+  this.loadAmenities();
+  this.loadUnits();
+  this.loadSlots();
+
+}
 
   // ============================================
   // LOAD DATA
@@ -37,19 +41,69 @@ export class AdminAmenityManagementComponent implements OnInit {
 
   loadAmenities(): void {
 
-    // API CALL HERE
+    this.service.getAmenities()
+      .subscribe({
+        next: (data) => {
+
+          console.log('Amenities:', data);
+
+          this.amenities = data;
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+        }
+
+      });
 
   }
 
   loadUnits(): void {
 
-    // API CALL HERE
+    this.service.getUnits()
+      .subscribe({
+
+        next: (data) => {
+
+          console.log('Units:', data);
+
+          this.units = data;
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+        }
+
+      });
 
   }
 
   loadSlots(): void {
 
-    // API CALL HERE
+    this.service.getSlots()
+      .subscribe({
+
+        next: (data) => {
+
+          console.log('Slots:', data);
+
+          this.slots = data;
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+        }
+
+      });
 
   }
 
@@ -71,10 +125,81 @@ export class AdminAmenityManagementComponent implements OnInit {
 
     if (!result) return;
 
-    console.log(result);
+    console.log('AMENITY CREATE PAYLOAD:', result);
 
-    // SAVE API HERE
+    if (result.amenityId === undefined)
+    {
+      console.log(result);
 
+      this.service.createAmenity(result)
+        .subscribe({
+
+          next: () => {
+
+            this.snackBar.open(
+              'Amenity created successfully',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+            this.loadAmenities();
+
+          },
+
+          error: (err) => {
+
+            console.error(err);
+
+            this.snackBar.open(
+              'Failed to create amenity',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+          }
+
+        });
+    }
+    else{
+      console.log('AMENITY UPDATE PAYLOAD:', result);
+
+      this.service.updateAmenity(result.amenityId, result)
+      .subscribe({
+
+        next: () => {
+
+          this.snackBar.open(
+            'Amenity updated successfully',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+          this.loadAmenities();
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+          this.snackBar.open(
+            'Failed to update amenity',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+        }
+
+      });
+    }
   });
 
 }
@@ -130,37 +255,371 @@ export class AdminAmenityManagementComponent implements OnInit {
 
 }
 
-  // ============================================
-  // DELETE
-  // ============================================
+  // =========================================================
+  // ADD AMENITY
+  // =========================================================
 
-  deleteAmenity(item: any): void {
+  addAmenity(): void {
 
-    if (!confirm(
-      'Delete amenity with related units, slots and bookings?'
-    )) return;
+    const dialogRef = this.dialog.open(
+      AmenityDialogComponent,
+      {
+        width: '550px',
+        data: null
+      }
+    );
 
-    // DELETE API
+    dialogRef.afterClosed()
+      .subscribe(result => {
+
+        if (!result) return;
+
+        this.service.createAmenity(result)
+          .subscribe({
+
+            next: () => {
+
+              this.snackBar.open(
+                'Amenity created successfully',
+                '',
+                {
+                  duration: 3000
+                }
+              );
+
+              this.loadAmenities();
+
+            }
+
+          });
+
+      });
 
   }
 
-  deleteUnit(item: any): void {
+  // =========================================================
+  // EDIT AMENITY
+  // =========================================================
 
-    if (!confirm(
-      'Delete unit with related slots and bookings?'
-    )) return;
+  editAmenity(amenity: any): void {
 
-    // DELETE API
+    const dialogRef = this.dialog.open(
+      AmenityDialogComponent,
+      {
+        width: '550px',
+        data: amenity
+      }
+    );
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+
+        if (!result) return;
+
+        this.service
+          .updateAmenity(
+            amenity.amenityId,
+            result
+          )
+          .subscribe({
+
+            next: () => {
+
+              this.snackBar.open(
+                'Amenity updated successfully',
+                '',
+                {
+                  duration: 3000
+                }
+              );
+
+              this.loadAmenities();
+
+            }
+
+          });
+
+      });
 
   }
 
-  deleteSlot(item: any): void {
+  // =========================================================
+  // DELETE AMENITY
+  // =========================================================
 
-    if (!confirm(
-      'Delete slot with related bookings?'
-    )) return;
+  deleteAmenity(amenity: any): void {
 
-    // DELETE API
+    const confirmed = confirm(
+      'Delete this amenity?'
+    );
+
+    if (!confirmed)
+      return;
+
+    this.service.deleteAmenity(amenity.amenityId)
+      .subscribe({
+
+        next: () => {
+
+          this.snackBar.open(
+            'Amenity deleted',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+          this.loadAll();
+
+        }
+
+      });
+
+  }
+
+  // =========================================================
+  // ADD UNIT
+  // =========================================================
+
+  addUnit(): void {
+
+    const dialogRef = this.dialog.open(
+      UnitDialogComponent,
+      {
+        width: '500px',
+        data: {
+          amenities: this.amenities
+        }
+      }
+    );
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+
+        if (!result) return;
+
+        this.service.createUnit(result)
+          .subscribe({
+
+            next: () => {
+
+              this.snackBar.open(
+                'Unit created successfully',
+                '',
+                {
+                  duration: 3000
+                }
+              );
+
+              this.loadUnits();
+
+            }
+
+          });
+
+      });
+
+  }
+
+  // =========================================================
+  // EDIT UNIT
+  // =========================================================
+
+  editUnit(unit: any): void {
+
+    const dialogRef = this.dialog.open(
+      UnitDialogComponent,
+      {
+        width: '500px',
+        data: {
+          ...unit,
+          amenities: this.amenities
+        }
+      }
+    );
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+
+        if (!result) return;
+
+        this.service.updateUnit(
+          unit.unitId,
+          result
+        )
+        .subscribe({
+
+          next: () => {
+
+            this.snackBar.open(
+              'Unit updated successfully',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+            this.loadUnits();
+
+          }
+
+        });
+
+      });
+
+  }
+
+  // =========================================================
+  // DELETE UNIT
+  // =========================================================
+
+  deleteUnit(id: number): void {
+
+    if (!confirm('Delete this unit?'))
+      return;
+
+    this.service.deleteUnit(id)
+      .subscribe({
+
+        next: () => {
+
+          this.snackBar.open(
+            'Unit deleted',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+          this.loadAll();
+
+        }
+
+      });
+
+  }
+
+  // =========================================================
+  // ADD SLOT
+  // =========================================================
+
+  addSlot(): void {
+
+    const dialogRef = this.dialog.open(
+      SlotDialogComponent,
+      {
+        width: '550px',
+        data: {
+          amenities: this.amenities,
+          units: this.units
+        }
+      }
+    );
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+
+        if (!result) return;
+
+        this.service.createSlot(result)
+          .subscribe({
+
+            next: () => {
+
+              this.snackBar.open(
+                'Slot created successfully',
+                '',
+                {
+                  duration: 3000
+                }
+              );
+
+              this.loadSlots();
+
+            }
+
+          });
+
+      });
+
+  }
+
+  // =========================================================
+  // EDIT SLOT
+  // =========================================================
+
+  editSlot(slot: any): void {
+
+    const dialogRef = this.dialog.open(
+      SlotDialogComponent,
+      {
+        width: '550px',
+        data: {
+          ...slot,
+          amenities: this.amenities,
+          units: this.units
+        }
+      }
+    );
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+
+        if (!result) return;
+
+        this.service.updateSlot(
+          slot.slotId,
+          result
+        )
+        .subscribe({
+
+          next: () => {
+
+            this.snackBar.open(
+              'Slot updated successfully',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+            this.loadSlots();
+
+          }
+
+        });
+
+      });
+
+  }
+
+  // =========================================================
+  // DELETE SLOT
+  // =========================================================
+
+  deleteSlot(id: number): void {
+
+    if (!confirm('Delete this slot?'))
+      return;
+
+    this.service.deleteSlot(id)
+      .subscribe({
+
+        next: () => {
+
+          this.snackBar.open(
+            'Slot deleted',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+          this.loadAll();
+
+        }
+
+      });
 
   }
   
