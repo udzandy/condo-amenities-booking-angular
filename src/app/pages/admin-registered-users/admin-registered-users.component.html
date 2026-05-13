@@ -1,0 +1,144 @@
+<!-- ===================================================== -->
+<!-- REGISTERED USERS -->
+<!-- ===================================================== -->
+
+<mat-card class="config-card">
+
+  <div class="card-header">
+
+    <h2>Registered Users</h2>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openUserDialog()">
+
+      <mat-icon>add</mat-icon>
+      Add User
+
+    </button>
+
+  </div>
+
+  <table class="config-table">
+
+    <thead>
+
+      <tr>
+        <th>Profile</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Unit No</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Approval</th>
+        <th>Actions</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr *ngFor="let user of users">
+
+        <td>
+
+          <img
+            [src]="user.profileImage || 'assets/no-user.png'"
+            class="thumb">
+
+        </td>
+
+        <td>{{ user.fullName }}</td>
+
+        <td>{{ user.email }}</td>
+
+        <td>{{ user.phoneNumber }}</td>
+
+        <td>{{ user.unitNo }}</td>
+
+        <td>{{ user.role }}</td>
+
+        <td>
+
+          <span
+            [class.active]="user.isActive"
+            [class.inactive]="!user.isActive">
+
+            {{ user.isActive ? 'Active' : 'Inactive' }}
+
+          </span>
+
+        </td>
+
+        <!-- ================= APPROVAL COLUMN ================= -->
+
+        <td>
+
+          <span
+            [class.active]="user.isApproved"
+            [class.inactive]="!user.isApproved">
+
+            {{ user.isApproved ? 'Approved' : 'Pending' }}
+
+          </span>
+
+        </td>
+
+        <!-- ================= ACTIONS ================= -->
+
+        <td class="action-column">
+
+          <!-- EDIT -->
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="openUserDialog(user)">
+
+            <mat-icon>edit</mat-icon>
+
+          </button>
+
+          <!-- DELETE -->
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteUser(user)">
+
+            <mat-icon>delete</mat-icon>
+
+          </button>
+
+          <!-- APPROVE BUTTON -->
+          <button
+            mat-icon-button
+            color="accent"
+            *ngIf="!user.isApproved">
+            <!-- (click)="approveUser(user)" -->
+
+            <mat-icon>check_circle</mat-icon>
+
+          </button>
+
+          <!-- APPROVED ICON -->
+          <button
+            mat-icon-button
+            disabled
+            *ngIf="user.isApproved">
+
+            <mat-icon style="color: green;">
+              verified
+            </mat-icon>
+
+          </button>
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</mat-card>

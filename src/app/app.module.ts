@@ -37,6 +37,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AmenityDialogComponent } from './components/amenity-dialog/amenity-dialog.component';
 import { UnitDialogComponent } from './components/unit-dialog/unit-dialog.component';
 import { SlotDialogComponent } from './components/slot-dialog/slot-dialog.component';
+import { AdminRegisteredUsersComponent } from './pages/admin-registered-users/admin-registered-users.component';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { SlotDialogComponent } from './components/slot-dialog/slot-dialog.compon
     AdminAmenityManagementComponent,
     AmenityDialogComponent,
     UnitDialogComponent,
-    SlotDialogComponent
+    SlotDialogComponent,
+    AdminRegisteredUsersComponent,
+    UserDialogComponent
   ],
   imports: [
     ReactiveFormsModule,

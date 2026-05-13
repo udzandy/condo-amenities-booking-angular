@@ -8,6 +8,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { AdminAmenityManagementComponent } from './pages/admin-amenity-management/admin-amenity-management.component';
+import { AdminRegisteredUsersComponent } from './pages/admin-registered-users/admin-registered-users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -18,10 +19,11 @@ const routes: Routes = [
   // { path: '', component: HomeComponent },
   { path: 'amenities', component: HomeComponent },
   { path: 'booking/:amenity', component: BookingComponent },
-  { path: 'my-bookings', component: MyBookingsComponent },
+  { path: 'bookings', component: MyBookingsComponent },
   { path: 'register', component: RegistrationComponent },
   {path: 'admin-dashboard', component: AdminDashboardComponent },
-  {path: 'admin-amenity-config', component: AdminAmenityManagementComponent }
+  {path: 'admin-amenity-config', component: AdminAmenityManagementComponent },
+  {path: 'registered-users', component: AdminRegisteredUsersComponent }
 ];
 
 @NgModule({
