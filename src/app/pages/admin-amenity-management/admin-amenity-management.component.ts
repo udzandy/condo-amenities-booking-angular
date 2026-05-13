@@ -221,9 +221,82 @@ export class AdminAmenityManagementComponent implements OnInit {
 
     if (!result) return;
 
-    console.log(result);
+    console.log('UNIT CREATE PAYLOAD:', result);
 
     // SAVE API HERE
+    if (result.unitId === undefined)
+    {
+      console.log(result);
+
+      this.service.createUnit(result)
+        .subscribe({
+
+          next: () => {
+
+            this.snackBar.open(
+              'Unit created successfully',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+            this.loadUnits();
+
+          },
+
+          error: (err) => {
+
+            console.error(err);
+
+            this.snackBar.open(
+              'Failed to create Unit',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+          }
+
+        });
+    }
+    else{
+      console.log('UNIT UPDATE PAYLOAD:', result);
+
+      this.service.updateUnit(result.unitId, result)
+      .subscribe({
+
+        next: () => {
+
+          this.snackBar.open(
+            'Unit updated successfully',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+          this.loadUnits();
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+          this.snackBar.open(
+            'Failed to update unit',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+        }
+
+      });
+    }
 
   });
 
@@ -250,6 +323,82 @@ export class AdminAmenityManagementComponent implements OnInit {
     console.log(result);
 
     // SAVE API HERE
+    console.log('SLOT CREATE PAYLOAD:', result);
+
+    // SAVE API HERE
+    if (result.slotId === undefined)
+    {
+      console.log(result);
+
+      this.service.createSlot(result)
+        .subscribe({
+
+          next: () => {
+
+            this.snackBar.open(
+              'Unit created successfully',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+            this.loadSlots();
+
+          },
+
+          error: (err) => {
+
+            console.error(err);
+
+            this.snackBar.open(
+              'Failed to create slot',
+              '',
+              {
+                duration: 3000
+              }
+            );
+
+          }
+
+        });
+    }
+    else{
+      console.log('SLOT UPDATE PAYLOAD:', result);
+
+      this.service.updateSlot(result.slotId, result)
+      .subscribe({
+
+        next: () => {
+
+          this.snackBar.open(
+            'Slot updated successfully',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+          this.loadSlots();
+
+        },
+
+        error: (err) => {
+
+          console.error(err);
+
+          this.snackBar.open(
+            'Failed to update slot',
+            '',
+            {
+              duration: 3000
+            }
+          );
+
+        }
+
+      });
+    }
 
   });
 
@@ -259,89 +408,89 @@ export class AdminAmenityManagementComponent implements OnInit {
   // ADD AMENITY
   // =========================================================
 
-  addAmenity(): void {
+  // addAmenity(): void {
 
-    const dialogRef = this.dialog.open(
-      AmenityDialogComponent,
-      {
-        width: '550px',
-        data: null
-      }
-    );
+  //   const dialogRef = this.dialog.open(
+  //     AmenityDialogComponent,
+  //     {
+  //       width: '550px',
+  //       data: null
+  //     }
+  //   );
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
+  //   dialogRef.afterClosed()
+  //     .subscribe(result => {
 
-        if (!result) return;
+  //       if (!result) return;
 
-        this.service.createAmenity(result)
-          .subscribe({
+  //       this.service.createAmenity(result)
+  //         .subscribe({
 
-            next: () => {
+  //           next: () => {
 
-              this.snackBar.open(
-                'Amenity created successfully',
-                '',
-                {
-                  duration: 3000
-                }
-              );
+  //             this.snackBar.open(
+  //               'Amenity created successfully',
+  //               '',
+  //               {
+  //                 duration: 3000
+  //               }
+  //             );
 
-              this.loadAmenities();
+  //             this.loadAmenities();
 
-            }
+  //           }
 
-          });
+  //         });
 
-      });
+  //     });
 
-  }
+  // }
 
   // =========================================================
   // EDIT AMENITY
   // =========================================================
 
-  editAmenity(amenity: any): void {
+  // editAmenity(amenity: any): void {
 
-    const dialogRef = this.dialog.open(
-      AmenityDialogComponent,
-      {
-        width: '550px',
-        data: amenity
-      }
-    );
+  //   const dialogRef = this.dialog.open(
+  //     AmenityDialogComponent,
+  //     {
+  //       width: '550px',
+  //       data: amenity
+  //     }
+  //   );
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
+  //   dialogRef.afterClosed()
+  //     .subscribe(result => {
 
-        if (!result) return;
+  //       if (!result) return;
 
-        this.service
-          .updateAmenity(
-            amenity.amenityId,
-            result
-          )
-          .subscribe({
+  //       this.service
+  //         .updateAmenity(
+  //           amenity.amenityId,
+  //           result
+  //         )
+  //         .subscribe({
 
-            next: () => {
+  //           next: () => {
 
-              this.snackBar.open(
-                'Amenity updated successfully',
-                '',
-                {
-                  duration: 3000
-                }
-              );
+  //             this.snackBar.open(
+  //               'Amenity updated successfully',
+  //               '',
+  //               {
+  //                 duration: 3000
+  //               }
+  //             );
 
-              this.loadAmenities();
+  //             this.loadAmenities();
 
-            }
+  //           }
 
-          });
+  //         });
 
-      });
+  //     });
 
-  }
+  // }
 
   // =========================================================
   // DELETE AMENITY
@@ -381,104 +530,104 @@ export class AdminAmenityManagementComponent implements OnInit {
   // ADD UNIT
   // =========================================================
 
-  addUnit(): void {
+  // addUnit(): void {
 
-    const dialogRef = this.dialog.open(
-      UnitDialogComponent,
-      {
-        width: '500px',
-        data: {
-          amenities: this.amenities
-        }
-      }
-    );
+  //   const dialogRef3 = this.dialog.open(
+  //     UnitDialogComponent,
+  //     {
+  //       width: '500px',
+  //       data: {
+  //         amenities: this.amenities
+  //       }
+  //     }
+  //   );
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
+  //   dialogRef3.afterClosed()
+  //     .subscribe(result => {
 
-        if (!result) return;
+  //       if (!result) return;
 
-        this.service.createUnit(result)
-          .subscribe({
+  //       this.service.createUnit(result)
+  //         .subscribe({
 
-            next: () => {
+  //           next: () => {
 
-              this.snackBar.open(
-                'Unit created successfully',
-                '',
-                {
-                  duration: 3000
-                }
-              );
+  //             this.snackBar.open(
+  //               'Unit created successfully',
+  //               '',
+  //               {
+  //                 duration: 3000
+  //               }
+  //             );
 
-              this.loadUnits();
+  //             this.loadUnits();
 
-            }
+  //           }
 
-          });
+  //         });
 
-      });
+  //     });
 
-  }
+  // }
 
   // =========================================================
   // EDIT UNIT
   // =========================================================
 
-  editUnit(unit: any): void {
+  // editUnit(unit: any): void {
 
-    const dialogRef = this.dialog.open(
-      UnitDialogComponent,
-      {
-        width: '500px',
-        data: {
-          ...unit,
-          amenities: this.amenities
-        }
-      }
-    );
+  //   const dialogRef = this.dialog.open(
+  //     UnitDialogComponent,
+  //     {
+  //       width: '500px',
+  //       data: {
+  //         ...unit,
+  //         amenities: this.amenities
+  //       }
+  //     }
+  //   );
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
+  //   dialogRef.afterClosed()
+  //     .subscribe(result => {
 
-        if (!result) return;
+  //       if (!result) return;
 
-        this.service.updateUnit(
-          unit.unitId,
-          result
-        )
-        .subscribe({
+  //       this.service.updateUnit(
+  //         unit.unitId,
+  //         result
+  //       )
+  //       .subscribe({
 
-          next: () => {
+  //         next: () => {
 
-            this.snackBar.open(
-              'Unit updated successfully',
-              '',
-              {
-                duration: 3000
-              }
-            );
+  //           this.snackBar.open(
+  //             'Unit updated successfully',
+  //             '',
+  //             {
+  //               duration: 3000
+  //             }
+  //           );
 
-            this.loadUnits();
+  //           this.loadUnits();
 
-          }
+  //         }
 
-        });
+  //       });
 
-      });
+  //     });
 
-  }
+  // }
 
   // =========================================================
   // DELETE UNIT
   // =========================================================
 
-  deleteUnit(id: number): void {
+  deleteUnit(unit: any): void {
 
     if (!confirm('Delete this unit?'))
       return;
 
-    this.service.deleteUnit(id)
+    this.service.deleteUnit(unit.unitId)
       .subscribe({
 
         next: () => {
@@ -503,106 +652,106 @@ export class AdminAmenityManagementComponent implements OnInit {
   // ADD SLOT
   // =========================================================
 
-  addSlot(): void {
+  // addSlot(): void {
 
-    const dialogRef = this.dialog.open(
-      SlotDialogComponent,
-      {
-        width: '550px',
-        data: {
-          amenities: this.amenities,
-          units: this.units
-        }
-      }
-    );
+  //   const dialogRef = this.dialog.open(
+  //     SlotDialogComponent,
+  //     {
+  //       width: '550px',
+  //       data: {
+  //         amenities: this.amenities,
+  //         units: this.units
+  //       }
+  //     }
+  //   );
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
+  //   dialogRef.afterClosed()
+  //     .subscribe(result => {
 
-        if (!result) return;
+  //       if (!result) return;
 
-        this.service.createSlot(result)
-          .subscribe({
+  //       this.service.createSlot(result)
+  //         .subscribe({
 
-            next: () => {
+  //           next: () => {
 
-              this.snackBar.open(
-                'Slot created successfully',
-                '',
-                {
-                  duration: 3000
-                }
-              );
+  //             this.snackBar.open(
+  //               'Slot created successfully',
+  //               '',
+  //               {
+  //                 duration: 3000
+  //               }
+  //             );
 
-              this.loadSlots();
+  //             this.loadSlots();
 
-            }
+  //           }
 
-          });
+  //         });
 
-      });
+  //     });
 
-  }
+  // }
 
   // =========================================================
   // EDIT SLOT
   // =========================================================
 
-  editSlot(slot: any): void {
+  // editSlot(slot: any): void {
 
-    const dialogRef = this.dialog.open(
-      SlotDialogComponent,
-      {
-        width: '550px',
-        data: {
-          ...slot,
-          amenities: this.amenities,
-          units: this.units
-        }
-      }
-    );
+  //   const dialogRef = this.dialog.open(
+  //     SlotDialogComponent,
+  //     {
+  //       width: '550px',
+  //       data: {
+  //         ...slot,
+  //         amenities: this.amenities,
+  //         units: this.units
+  //       }
+  //     }
+  //   );
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
+  //   dialogRef.afterClosed()
+  //     .subscribe(result => {
 
-        if (!result) return;
+  //       if (!result) return;
 
-        this.service.updateSlot(
-          slot.slotId,
-          result
-        )
-        .subscribe({
+  //       this.service.updateSlot(
+  //         slot.slotId,
+  //         result
+  //       )
+  //       .subscribe({
 
-          next: () => {
+  //         next: () => {
 
-            this.snackBar.open(
-              'Slot updated successfully',
-              '',
-              {
-                duration: 3000
-              }
-            );
+  //           this.snackBar.open(
+  //             'Slot updated successfully',
+  //             '',
+  //             {
+  //               duration: 3000
+  //             }
+  //           );
 
-            this.loadSlots();
+  //           this.loadSlots();
 
-          }
+  //         }
 
-        });
+  //       });
 
-      });
+  //     });
 
-  }
+  // }
 
   // =========================================================
   // DELETE SLOT
   // =========================================================
 
-  deleteSlot(id: number): void {
+  deleteSlot(slot: any): void {
 
     if (!confirm('Delete this slot?'))
       return;
 
-    this.service.deleteSlot(id)
+    this.service.deleteSlot(slot.slotId)
       .subscribe({
 
         next: () => {

@@ -11,6 +11,7 @@ export class UnitDialogComponent {
   model: any = {
     amenityId: null,
     unitName: '',
+    unitId: undefined,
     isActive: true
   };
 
