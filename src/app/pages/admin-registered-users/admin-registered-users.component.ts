@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from 'src/app/user-dialog/user-dialog.component';
 import { AdminRegisteredUsersService } from './admin-registered-users.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RegistrationSuccessDialogComponent } from 'src/app/components/registration-success-dialog/registration-success-dialog.component';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-admin-registered-users',
@@ -30,7 +32,8 @@ export class AdminRegisteredUsersComponent implements OnInit{
   constructor(
     private dialog: MatDialog,
     private service: AdminRegisteredUsersService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -86,140 +89,106 @@ export class AdminRegisteredUsersComponent implements OnInit{
   
       if (!result) return;
   
-      console.log('AMENITY CREATE PAYLOAD:', result);
+      console.log('USER REGISTRATION PAYLOAD:', result);
   
       if (result.amenityId === undefined)
       {
         console.log(result);
   
-        this.service.createUser(result)
-          .subscribe({
-  
-            next: () => {
-  
-              this.snackBar.open(
-                'Amenity created successfully',
-                '',
-                {
-                  duration: 3000
-                }
-              );
-  
-              this.loadUsers();
-  
-            },
-  
-            error: (err) => {
-  
-              console.error(err);
-  
-              this.snackBar.open(
-                'Failed to create amenity',
-                '',
-                {
-                  duration: 3000
-                }
-              );
-  
-            }
-  
-          });
-      }
-      else{
-        console.log('AMENITY UPDATE PAYLOAD:', result);
-  
-        this.service.updateUser(result.amenityId, result)
+        this.authService.register(result)
         .subscribe({
   
-          next: () => {
+          next: (response) => {
   
+            console.log(response);
+  
+            const firstName = result.firstName;
+
             this.snackBar.open(
-              'Amenity updated successfully',
-              '',
-              {
-                duration: 3000
-              }
-            );
+                response.message,
+                '',
+                {
+                  duration: 3000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'top',
+                  panelClass: ['success-snackbar']
+                });
   
+            // SUCCESS DIALOG
+            this.dialog.open(
+              RegistrationSuccessDialogComponent,
+              {
+                width: '450px',
+                disableClose: true,
+                data: { firstName }
+              });
+
+              
+  
+            // CLEAR FORM
+            // this.registrationForm.reset();
+
             this.loadUsers();
   
           },
-  
           error: (err) => {
   
-            console.error(err);
+            console.log(err);
   
             this.snackBar.open(
-              'Failed to update amenity',
+              'Registration failed',
               '',
               {
-                duration: 3000
-              }
-            );
-  
+                duration: 3000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top',
+                panelClass: ['error-snackbar']
+              });
           }
   
         });
       }
+      else{
+        console.log('AMENITY UPDATE PAYLOAD:', result);
+  
+        // this.service.updateUser(result.amenityId, result)
+        // .subscribe({
+  
+        //   next: () => {
+  
+        //     this.snackBar.open(
+        //       'Amenity updated successfully',
+        //       '',
+        //       {
+        //         duration: 3000
+        //       }
+        //     );
+  
+        //     this.loadUsers();
+  
+        //   },
+  
+        //   error: (err) => {
+  
+        //     console.error(err);
+  
+        //     this.snackBar.open(
+        //       'Failed to update amenity',
+        //       '',
+        //       {
+        //         duration: 3000
+        //       }
+        //     );
+  
+        //   }
+  
+        // });
+      }
     });
   
   }
 
-  // =====================================================
-  // OPEN ADD USER DIALOG
-  // =====================================================
-
-  addUser(): void {
-
-    const dialogRef = this.dialog.open(UserDialogComponent, {
-
-      width: '600px',
-
-      disableClose: true,
-
-      data: null
-
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      if (result) {
-
-        this.loadUsers();
-
-      }
-
-    });
-
-  }
-
-  // =====================================================
-  // OPEN EDIT USER DIALOG
-  // =====================================================
-
-  editUser(user: any): void {
-
-    const dialogRef = this.dialog.open(UserDialogComponent, {
-
-      width: '600px',
-
-      disableClose: true,
-
-      data: user
-
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      if (result) {
-
-        this.loadUsers();
-
-      }
-
-    });
-
-  }
+  
 
   // =====================================================
   // DELETE USER
@@ -235,11 +204,20 @@ export class AdminRegisteredUsersComponent implements OnInit{
       return;
     }
 
-    this.service.deleteUser(user.id).subscribe({
+    this.service.deleteUser(user.userId).subscribe({
 
-      next: () => {
+      next: (response) => {
 
-        alert('User deleted successfully.');
+        // alert('User deleted successfully.');
+        this.snackBar.open(
+                response.message,
+                '',
+                {
+                  duration: 3000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'top',
+                  panelClass: ['success-snackbar']
+                });
 
         this.loadUsers();
 
@@ -249,7 +227,17 @@ export class AdminRegisteredUsersComponent implements OnInit{
 
         console.error('Delete error:', error);
 
-        alert('Failed to delete user.');
+        // alert('Failed to delete user.');
+
+        this.snackBar.open(
+            error.error.message,
+            '',
+            {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
+            });
 
       }
 
@@ -258,30 +246,54 @@ export class AdminRegisteredUsersComponent implements OnInit{
   }
 
   // =====================================================
-  // TOGGLE USER STATUS
+  // Rject USER
   // =====================================================
 
-  toggleStatus(user: any): void {
+  rejectUser(user: any): void {
 
-    const updatedUser = {
+    const confirmed = confirm(
+      `Are you sure you want to reject ${user.fullName}?`
+    );
 
-      ...user,
+    if (!confirmed) {
+      return;
+    }
 
-      isActive: !user.isActive
+    this.service.rejectUser(user.userId).subscribe({
 
-    };
+      next: (response) => {
 
-    this.service.updateUser(updatedUser.Id, updatedUser).subscribe({
+        // alert('User rejected successfully.');
 
-      next: () => {
+        this.snackBar.open(
+                response.message,
+                '',
+                {
+                  duration: 3000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'top',
+                  panelClass: ['success-snackbar']
+                });
 
-        user.isActive = updatedUser.isActive;
+        this.loadUsers();
 
       },
 
       error: (error: any) => {
 
-        console.error('Status update error:', error);
+        console.error('Reject error:', error);
+
+        // alert('Failed to reject user.');
+
+        this.snackBar.open(
+            error.error.message,
+            '',
+            {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
+            });
 
       }
 
@@ -290,12 +302,58 @@ export class AdminRegisteredUsersComponent implements OnInit{
   }
 
   // =====================================================
-  // REFRESH PAGE
+  // APPROVE USER
   // =====================================================
 
-  refresh(): void {
+  approveUser(user: any): void {
 
-    this.loadUsers();
+    // const confirmed = confirm(
+    //   `Are you sure you want to reject ${user.fullName}?`
+    // );
+
+    // if (!confirmed) {
+    //   return;
+    // }
+
+    this.service.approveUser(user.userId).subscribe({
+
+      next: (response) => {
+
+        // alert('User approved.');
+
+        this.snackBar.open(
+                response.message,
+                '',
+                {
+                  duration: 3000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'top',
+                  panelClass: ['success-snackbar']
+                });
+
+        this.loadUsers();
+
+      },
+
+      error: (error: any) => {
+
+        console.error('Approved error:', error);
+
+        // alert('Failed to approve user.');
+
+        this.snackBar.open(
+            error.error.message,
+            '',
+            {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
+            });
+
+      }
+
+    });
 
   }
 

@@ -119,11 +119,21 @@ export class RegistrationComponent {
 
           console.log(err);
 
-          this.snackBar.open(
-            'Registration failed',
+          // this.snackBar.open(
+          //   'Registration failed',
+          //   '',
+          //   {
+          //     duration: 3000
+          //   });
+
+            this.snackBar.open(
+            err.error.message || err.message,
             '',
             {
-              duration: 3000
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
             });
         }
 

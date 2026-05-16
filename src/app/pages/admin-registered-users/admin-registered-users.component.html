@@ -8,7 +8,7 @@
 
     <h2>Registered Users</h2>
 
-    <button
+    <!-- <button
       mat-raised-button
       color="primary"
       (click)="openUserDialog()">
@@ -16,7 +16,7 @@
       <mat-icon>add</mat-icon>
       Add User
 
-    </button>
+    </button> -->
 
   </div>
 
@@ -67,7 +67,7 @@
 
           <span
             [class.active]="user.isApproved"
-            [class.inactive]="!user.isApproved">
+            [class.pending]="!user.isApproved">
 
             {{ user.isApproved ? 'Approved' : 'Pending' }}
 
@@ -80,33 +80,34 @@
         <td class="action-column">
 
           <!-- EDIT -->
-          <button
+          <!-- <button
             mat-icon-button
             color="primary"
             (click)="openUserDialog(user)">
 
             <mat-icon>edit</mat-icon>
 
-          </button>
-
-          <!-- DELETE -->
-          <button
-            mat-icon-button
-            color="warn"
-            (click)="deleteUser(user)">
-
-            <mat-icon>delete</mat-icon>
-
-          </button>
+          </button> -->
 
           <!-- APPROVE BUTTON -->
           <button
             mat-icon-button
             color="accent"
-            *ngIf="!user.isApproved">
-            <!-- (click)="approveUser(user)" -->
+            *ngIf="!user.isApproved"
+            (click)="approveUser(user)">
 
             <mat-icon>check_circle</mat-icon>
+
+          </button>
+
+          <!-- REJECT BUTTON -->
+          <button
+            mat-icon-button
+            color="warn"
+            *ngIf="!user.isApproved"
+            (click)="rejectUser(user)">
+
+            <mat-icon>block</mat-icon>
 
           </button>
 
@@ -119,6 +120,16 @@
             <mat-icon style="color: green;">
               verified
             </mat-icon>
+
+          </button>
+
+          <!-- DELETE -->
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteUser(user)">
+
+            <mat-icon>delete</mat-icon>
 
           </button>
 

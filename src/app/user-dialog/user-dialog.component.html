@@ -1,1 +1,205 @@
-<p>user-dialog works!</p>
+<h2 mat-dialog-title>
+  User Registration
+</h2>
+
+<mat-dialog-content>
+
+  <div class="dialog-form">
+
+    <!-- FIRST NAME -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>First Name</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.firstName"
+        name="firstName">
+
+    </mat-form-field>
+
+    <!-- LAST NAME -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Last Name</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.lastName"
+        name="lastName">
+
+    </mat-form-field>
+
+    <!-- EMAIL -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Email</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.email"
+        name="email">
+
+    </mat-form-field>
+
+    <!-- MOBILE -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Mobile</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.mobile"
+        name="mobile">
+
+    </mat-form-field>
+
+    <!-- PASSWORD -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Password</mat-label>
+
+      <input
+        matInput
+        type="password"
+        [(ngModel)]="model.password"
+        name="password">
+
+    </mat-form-field>
+
+    <!-- CONFIRM PASSWORD -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Confirm Password</mat-label>
+
+      <input
+        matInput
+        type="password"
+        [(ngModel)]="model.confirmPassword"
+        name="confirmPassword">
+
+    </mat-form-field>
+
+    <!-- ESTATE -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Estate / Building Name</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.estateName"
+        name="estateName">
+
+    </mat-form-field>
+
+    <!-- BLOCK -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Block</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.block"
+        name="block">
+
+    </mat-form-field>
+
+    <!-- FLOOR -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Floor</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.floor"
+        name="floor">
+
+    </mat-form-field>
+
+    <!-- UNIT NUMBER -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Unit Number</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.unitNumber"
+        name="unitNumber">
+
+    </mat-form-field>
+
+    <!-- POSTAL CODE -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Postal Code</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="model.postalCode"
+        name="postalCode">
+
+    </mat-form-field>
+
+    <!-- USER TYPE -->
+
+    <mat-form-field appearance="outline" class="full-width">
+
+      <mat-label>Owner / Tenant</mat-label>
+
+      <mat-select
+        [(ngModel)]="model.userType"
+        name="userType">
+
+        <mat-option value="Owner">
+          Owner
+        </mat-option>
+
+        <mat-option value="Tenant">
+          Tenant
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <!-- CANCEL -->
+
+  <button
+    mat-button
+    type="button"
+    mat-dialog-close>
+
+    Cancel
+
+  </button>
+
+  <!-- REGISTER -->
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="submit()">
+
+    Register
+
+  </button>
+
+</mat-dialog-actions>

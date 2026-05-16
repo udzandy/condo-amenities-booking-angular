@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   login() {
@@ -47,7 +49,16 @@ export class LoginComponent {
 
       error: (err) => {
 
-        alert('Invalid email or password');
+        //alert('Invalid email or password');
+        this.snackBar.open(
+            err.error.message,
+            '',
+            {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
+            });
 
         console.log(err);
 

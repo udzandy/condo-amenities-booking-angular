@@ -25,8 +25,16 @@ export class AdminRegisteredUsersService {
   }
 
 
-  deleteUser(id: number): Observable<any> {
+  deleteUser(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/deleteUser/${id}`);
+  }
+
+  rejectUser(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/rejectUser/${id}`);
+  }
+
+  approveUser(id: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/approveUser?id=${id}`, { });
   }
 
 }
