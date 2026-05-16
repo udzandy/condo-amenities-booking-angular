@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingConfirmDialogComponent } from '../../components/booking-confirm-dialog/booking-confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,117 +31,9 @@ export class BookingComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private router: Router
   ) {}
-
-  // amenityConfig: any = {
-
-  //   bbq: {
-  //     title: 'BBQ Booking',
-  //     unitsLabel: 'Pit',
-  //     units: [
-  //       { name: 'Pit 1', slots: [
-  //         { time: '09:00 AM - 04:00 PM', available: true },
-  //         { time: '05:00 PM - 10:00 PM', available: true }
-  //       ]},
-  //       { name: 'Pit 2', slots: [
-  //         { time: '09:00 AM - 04:00 PM', available: true },
-  //         { time: '05:00 PM - 10:00 PM', available: true }
-  //       ]}
-  //     ],
-  //     bookedSlots: {
-  //       '2026-01-07': [
-  //         { unit: 'Pit 1', time: '09:00 AM - 04:00 PM' },
-  //         { unit: 'Pit 1', time: '05:00 PM - 10:00 PM' },
-  //         { unit: 'Pit 2', time: '09:00 AM - 04:00 PM' }
-  //       ],
-  //       '2026-01-08': [
-  //         { unit: 'Pit 1', time: '09:00 AM - 04:00 PM' },
-  //         { unit: 'Pit 1', time: '05:00 PM - 10:00 PM' },
-  //         { unit: 'Pit 2', time: '09:00 AM - 04:00 PM' },
-  //         { unit: 'Pit 2', time: '05:00 PM - 10:00 PM' }
-  //       ]
-  //     }
-  //   },
-
-  //   'function-room': {
-  //     title: 'Function Room Booking',
-  //     unitsLabel: 'Room',
-  //     units: [
-  //       { name: 'Room A', slots: [
-  //         { time: '09:00 AM - 01:00 PM', available: true },
-  //         { time: '02:00 PM - 06:00 PM', available: false },
-  //         { time: '07:00 PM - 11:00 PM', available: true }
-  //       ]}
-  //     ],
-  //     bookedSlots: {
-  //       '2026-01-07': [
-  //         { unit: 'Room A', time: '09:00 AM - 01:00 PM' },
-  //         { unit: 'Room A', time: '02:00 PM - 06:00 PM' }
-  //       ],
-  //       '2026-01-10': [
-  //         { unit: 'Room A', time: '09:00 AM - 01:00 PM' },
-  //         { unit: 'Room A', time: '02:00 PM - 06:00 PM' },
-  //         { unit: 'Room A', time: '07:00 PM - 11:00 PM' }
-  //       ]
-  //     }
-  //   },
-
-  //   'tennis-court': {
-  //     title: 'Tennis Court Booking',
-  //     unitsLabel: 'Court',
-  //     units: [
-  //       { name: 'Court 1', slots: [
-  //         { time: '07:00 AM - 08:00 AM', available: true },
-  //         { time: '08:00 AM - 09:00 AM', available: false },
-  //         { time: '09:00 AM - 10:00 AM', available: false },
-  //         { time: '10:00 AM - 11:00 AM', available: false },
-  //         { time: '11:00 AM - 12:00 PM', available: false },
-  //         { time: '12:00 PM - 01:00 PM', available: false },
-  //         { time: '01:00 PM - 02:00 PM', available: false },
-  //         { time: '02:00 PM - 03:00 PM', available: false },
-  //         { time: '03:00 PM - 04:00 PM', available: false },
-  //         { time: '04:00 PM - 05:00 PM', available: false },
-  //         { time: '05:00 PM - 06:00 PM', available: false },
-  //         { time: '06:00 PM - 07:00 PM', available: false },
-  //         { time: '07:00 PM - 08:00 PM', available: false },
-  //         { time: '08:00 PM - 09:00 PM', available: false },
-  //         { time: '09:00 PM - 10:00 PM', available: false }
-  //       ]}
-  //     ],
-  //     bookedSlots: {
-  //       '2026-01-08': [
-  //         { unit: 'Court 1', time: '09:00 AM - 10:00 AM' },
-  //         { unit: 'Court 1', time: '02:00 PM - 03:00 PM' }
-  //       ],
-  //       '2026-01-11': [
-  //         { unit: 'Court 1', time: '08:00 AM - 09:00 AM' },
-  //         { unit: 'Court 1', time: '10:00 AM - 11:00 AM' },
-  //         { unit: 'Court 1', time: '07:00 PM - 08:00 PM' }
-  //       ],
-  //       '2026-01-20': [
-  //         { unit: 'Court 1', time: '07:00 AM - 08:00 AM' },
-  //         { unit: 'Court 1', time: '08:00 AM - 09:00 AM' },
-  //         { unit: 'Court 1', time: '09:00 AM - 10:00 AM' },
-  //         { unit: 'Court 1', time: '10:00 AM - 11:00 AM' },
-  //         { unit: 'Court 1', time: '11:00 AM - 12:00 PM' },
-  //         { unit: 'Court 1', time: '12:00 PM - 01:00 PM' },
-  //         { unit: 'Court 1', time: '01:00 PM - 02:00 PM' },
-  //         { unit: 'Court 1', time: '02:00 PM - 03:00 PM' },
-  //         { unit: 'Court 1', time: '03:00 PM - 04:00 PM' },
-  //         { unit: 'Court 1', time: '04:00 PM - 05:00 PM' },
-  //         { unit: 'Court 1', time: '05:00 PM - 06:00 PM' },
-  //         { unit: 'Court 1', time: '06:00 PM - 07:00 PM' },
-  //         { unit: 'Court 1', time: '07:00 PM - 08:00 PM' },
-  //         { unit: 'Court 1', time: '08:00 PM - 09:00 PM' },
-  //         { unit: 'Court 1', time: '09:00 PM - 10:00 PM' }
-  //       ]
-  //     }
-  //   }
-  // };
-
-  
-  
 
   ngOnInit(): void {
   // Subscribe to route param changes
@@ -416,6 +308,9 @@ export class BookingComponent implements OnInit {
 
               // REFRESH LIST
               this.loadAmenityConfig();
+
+              // REDIRECT TO AMENITIES PAGE
+              this.router.navigate(['/amenities']);
       },
       error: (err) => {
         console.log(err);

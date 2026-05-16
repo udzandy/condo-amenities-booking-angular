@@ -1,38 +1,135 @@
-<div class="my-bookings-page">
-  <h2>Bookings</h2>
+<div class="config-page">
 
-  <table class="booking-table" *ngIf="myBookings.length > 0; else noBookings">
-    <thead>
-      <tr>
-        <th>Amenity</th>
-        <th>Unit</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th *ngIf="this.userRole != 'Admin'">Action</th>
-        <th>Booking Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let booking of myBookings">
-        <td>{{ booking.amenityName | titlecase }}</td>
-        <td>{{ booking.unitName }}</td>
-        <td>{{ booking.bookingDate }}</td>
-        <td>{{ booking.timeSlot }}</td>
-        <td *ngIf="this.userRole != 'Admin'">
-          <button 
-            mat-raised-button 
-            color="warn" 
-            [disabled]="!booking.canCancel" 
-            (click)="cancelBooking(booking)">
-            Cancel
-          </button>
-        </td>
-        <td>{{ booking.status }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <h1 class="page-title" *ngIf="userRole != 'Admin'">
+    My Bookings
+  </h1>
 
-  <ng-template #noBookings>
-    <p>You have no bookings.</p>
-  </ng-template>
+  <h1 class="page-title" *ngIf="userRole == 'Admin'">
+    Bookings
+  </h1>
+
+  <!-- ===================================================== -->
+  <!-- BOOKINGS -->
+  <!-- ===================================================== -->
+
+  <mat-card class="config-card">
+
+    <div class="card-header">
+
+      <h2 *ngIf="userRole == 'Admin'">Booking History</h2>
+      <h2 *ngIf="userRole != 'Admin'">My Booking History</h2>
+
+    </div>
+
+    <table
+      class="config-table"
+      *ngIf="myBookings.length > 0; else noBookings">
+
+      <thead>
+
+        <tr>
+          <th *ngIf="userRole == 'Admin'">User Name</th>
+          <th>Amenity</th>
+          <th>Unit</th>
+          <th>Date</th>
+          <th>Time Slot</th>
+
+          <th *ngIf="userRole != 'Admin'">
+            Action
+          </th>
+
+          <th>
+            Booking Status
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let booking of myBookings">
+
+          <!-- USER NAME -->
+
+          <td *ngIf="userRole == 'Admin'">
+            {{ booking.userName | titlecase }}
+          </td>
+
+          <!-- AMENITY -->
+
+          <td>
+            {{ booking.amenityName | titlecase }}
+          </td>
+
+          <!-- UNIT -->
+
+          <td>
+            {{ booking.unitName }}
+          </td>
+
+          <!-- DATE -->
+
+          <td>
+            {{ booking.bookingDate }}
+          </td>
+
+          <!-- TIME -->
+
+          <td>
+            {{ booking.timeSlot }}
+          </td>
+
+          <!-- STATUS -->
+
+          <td>
+
+            <span
+              [class.active]="booking.status == 'Confirmed'"
+              [class.inactive]="booking.status != 'Confirmed'">
+
+              {{ booking.status }}
+
+            </span>
+
+          </td>
+
+          <!-- ACTION -->
+
+          <td
+            class="action-column"
+            *ngIf="userRole != 'Admin'">
+
+            <button
+              mat-raised-button
+              color="warn"
+              [disabled]="!booking.canCancel"
+              (click)="cancelBooking(booking)">
+
+              Cancel
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    <!-- NO BOOKINGS -->
+
+    <ng-template #noBookings>
+
+      <div class="empty-state">
+
+        You have no bookings.
+
+      </div>
+
+    </ng-template>
+
+  </mat-card>
+
 </div>
