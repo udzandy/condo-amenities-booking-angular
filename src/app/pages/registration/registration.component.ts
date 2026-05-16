@@ -5,6 +5,7 @@ import { RegistrationSuccessDialogComponent } from '../../components/registratio
 import { AuthService } from '../../auth/auth.service';
 import { RegisterUser } from '../../models/register-user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RegistrationService } from './registration.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,12 +14,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;
+  isAdminRole = false;
+  isLoggedIn = false;
+  userId = '';
 
   // constructor(private fb: FormBuilder, private dialog: MatDialog) {
   constructor(private fb: FormBuilder,
               private dialog: MatDialog,
               private authService: AuthService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+            private service: RegistrationService) {
     this.registrationForm = this.fb.group(
       {
         firstName: ['', Validators.required],
@@ -36,6 +41,16 @@ export class RegistrationComponent {
       },
       { validators: this.passwordMatchValidator }
     );
+    
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.isAdminRole = this.authService.getRole() === "Admin";
+    this.userId = this.authService.getUserId();
+
+    if (this.isLoggedIn && !this.isAdminRole)
+    {
+      this.loadUserInfo();
+    }
+
   }
 
   passwordMatchValidator(control: AbstractControl) {
@@ -139,4 +154,43 @@ export class RegistrationComponent {
 
       });
   }
+
+  updateUser()
+  {
+
+  }
+
+  loadUserInfo(): void {
+    //this.loading = true;
+    this.service.getUsers(this.userId).subscribe({
+      next: (response: any) => {
+        console.log(response);
+
+        this.registrationForm.patchValue({
+
+          firstName: response.firstName,
+          lastName: response.lastName,
+          email: response.email,
+          mobile: response.mobile,
+          password: response.password,
+          confirmPassword: response.password,
+          estateName: response.estateName,
+          block: response.block,
+          floor: response.floor,
+          unitNumber: response.unitNumber,
+          postalCode: response.postalCode,
+          userType: response.userType
+
+        });
+      },
+      error: (error: any) => {
+        console.error('Load users error:', error);
+        // this.loading = false;
+      }
+    });
+
+  }
+
+
+
 }

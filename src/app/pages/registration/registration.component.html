@@ -1,6 +1,8 @@
+<!-- <a routerLink="/login">Back to Login</a> -->
 <div class="registration-page">
   <div class="registration-container">
-    <h2>User Registration</h2>
+    <h2 *ngIf="!this.isLoggedIn">User Registration</h2>
+    <h2 *ngIf="this.isLoggedIn && !this.isAdminRole">User Info</h2>
 
     <form [formGroup]="registrationForm" (ngSubmit)="submit()">
 
@@ -35,7 +37,7 @@
         <input matInput formControlName="mobile">
       </mat-form-field>
 
-      <div class="form-row">
+      <div class="form-row" *ngIf="!this.isLoggedIn">
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input matInput type="password" formControlName="password">
@@ -85,8 +87,14 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit">
+      <button mat-raised-button color="primary" type="submit" *ngIf="!this.isLoggedIn">
         Register
+      </button>
+
+      <button mat-raised-button color="primary" type="submit" 
+      *ngIf="this.isLoggedIn && !this.isAdminRole"
+      (click)="updateUser()">
+        Update
       </button>
 
     </form>
