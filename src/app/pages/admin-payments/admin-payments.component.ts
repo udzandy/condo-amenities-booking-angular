@@ -12,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AdminPaymentsComponent implements OnInit {
 
   bookings: any[] = [];
+  searchText: string = '';
+  allBookings: any[] = [];
 
   constructor(
     private paymentService: PaymentService,
@@ -28,6 +30,7 @@ export class AdminPaymentsComponent implements OnInit {
       .subscribe({
         next: (response: any) => {
           this.bookings = response;
+          this.allBookings = response;
         },
         error: (error: any) => {
           console.error(error);
@@ -35,6 +38,70 @@ export class AdminPaymentsComponent implements OnInit {
       });
 
   }
+
+  filterBookings(): void {
+
+  const search = this.searchText
+    .toLowerCase()
+    .trim();
+
+  if (!search) {
+
+    this.bookings = this.allBookings;
+    return;
+
+  }
+
+  this.bookings = this.allBookings.filter((booking: any) =>
+
+    (booking.bookingId + '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.userName || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.amenityName || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.unitName || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.slotTime || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.paymentMethod || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.bookingStatus || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    ((booking.isPaid ? 'paid' : 'pending'))
+      .includes(search)
+
+  );
+
+}
 
   openPaymentDialog(booking: any): void {
 

@@ -10,11 +10,41 @@
 
   <mat-card class="config-card">
 
-    <div class="card-header">
+    <!-- <div class="card-header">
 
       <h2>Admin Payment Management</h2>
 
-    </div>
+    </div> -->
+
+    <div class="card-header">
+
+  <h2>
+    Admin Payment Management
+  </h2>
+
+  <!-- SEARCH BOX -->
+
+  <mat-form-field
+    appearance="outline"
+    class="search-box">
+
+    <mat-label>
+      Search Payments
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="searchText"
+      (keyup)="filterBookings()"
+      placeholder="Search...">
+
+    <mat-icon matSuffix>
+      search
+    </mat-icon>
+
+  </mat-form-field>
+
+</div>
 
     <table class="config-table">
 
