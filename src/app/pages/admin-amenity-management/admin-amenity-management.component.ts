@@ -133,9 +133,7 @@ export class AdminAmenityManagementComponent implements OnInit {
 
       this.service.createAmenity(result)
         .subscribe({
-
           next: () => {
-
             this.snackBar.open(
               'Amenity created successfully',
               '',

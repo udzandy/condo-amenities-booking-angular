@@ -1,0 +1,185 @@
+<div class="config-page">
+
+  <h1 class="page-title">
+    Booking Payments
+  </h1>
+
+  <!-- ===================================================== -->
+  <!-- BOOKING PAYMENTS -->
+  <!-- ===================================================== -->
+
+  <mat-card class="config-card">
+
+    <div class="card-header">
+
+      <h2>Admin Payment Management</h2>
+
+    </div>
+
+    <table class="config-table">
+
+      <thead>
+
+        <tr>
+
+          <th>Booking ID</th>
+          <th>User</th>
+          <th>Amenity</th>
+          <th>Unit</th>
+          <th>Booked Time Slot</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Payment Method</th>
+          <th>Paid Date</th>
+          <th>Payment Status</th>
+          <th>Booking Status</th>
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let booking of bookings">
+
+          <!-- BOOKING ID -->
+
+          <td>
+            {{ booking.bookingId }}
+          </td>
+
+          <!-- USER -->
+
+          <td>
+            {{ booking.userName }}
+          </td>
+
+          <!-- AMENITY -->
+
+          <td>
+            {{ booking.amenityName }}
+          </td>
+
+          <!-- UNIT -->
+
+          <td>
+            {{ booking.unitName }}
+          </td>
+
+          <!-- SLOT -->
+
+          <td>
+            {{ booking.slotTime }}
+          </td>
+
+          <!-- DATE -->
+
+          <td>
+            {{ booking.bookingDate | date:'dd MMM yyyy' }}
+          </td>
+
+          <!-- AMOUNT -->
+
+          <td>
+            {{ booking.amount | currency:'SGD' }}
+          </td>
+
+          <!-- PAYMENT METHOD -->
+
+          <td>
+
+            <span *ngIf="booking.paymentMethod">
+              {{ booking.paymentMethod }}
+            </span>
+
+            <span *ngIf="!booking.paymentMethod">
+              -
+            </span>
+
+          </td>
+
+          <!-- PAID DATE -->
+
+          <td>
+
+            <span *ngIf="booking.paidDate">
+              {{ booking.paidDate | date:'dd MMM yyyy hh:mm a' }}
+            </span>
+
+            <span *ngIf="!booking.paidDate">
+              -
+            </span>
+
+          </td>
+
+          <!-- PAYMENT STATUS -->
+
+          <td>
+
+            <span
+              [class.active]="booking.isPaid"
+              [class.inactive]="!booking.isPaid">
+
+              {{ booking.isPaid ? 'Paid' : 'Pending' }}
+
+            </span>
+
+          </td>
+
+          <!-- BOOKING STATUS -->
+
+          <td>
+
+            <span
+              [class.active]="booking.bookingStatus == 'Confirmed'"
+              [class.inactive]="booking.bookingStatus != 'Confirmed'">
+
+              {{ booking.bookingStatus }}
+
+            </span>
+
+          </td>
+
+          <!-- ACTIONS -->
+
+          <td class="action-column">
+
+            <!-- PAYMENT BUTTON -->
+
+            <button
+              mat-icon-button
+              color="accent"
+              *ngIf="!booking.isPaid"
+              (click)="openPaymentDialog(booking)">
+
+              <mat-icon>
+                payments
+              </mat-icon>
+
+            </button>
+
+            <!-- PAID ICON -->
+
+            <button
+              mat-icon-button
+              disabled
+              *ngIf="booking.isPaid">
+
+              <mat-icon style="color: green;">
+                check_circle
+              </mat-icon>
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </mat-card>
+
+</div>

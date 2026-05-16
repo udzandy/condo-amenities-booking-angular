@@ -16,6 +16,7 @@
       <a routerLink="/bookings" routerLinkActive="active">Bookings</a>
       <a routerLink="/registered-users" routerLinkActive="active" *ngIf="this.isAdminRole"> Registered Users </a>
       <a routerLink="/admin-amenity-config" routerLinkActive="active" *ngIf="this.isAdminRole"> Amenity Configuration </a>
+      <a routerLink="/payment" routerLinkActive="active" *ngIf="this.isAdminRole"> Payments </a>
     </nav>
 
     <!-- LOGOUT BUTTON -->

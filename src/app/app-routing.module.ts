@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { AdminAmenityManagementComponent } from './pages/admin-amenity-management/admin-amenity-management.component';
 import { AdminRegisteredUsersComponent } from './pages/admin-registered-users/admin-registered-users.component';
+import { AdminPaymentsComponent } from './pages/admin-payments/admin-payments.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   {path: 'admin-dashboard', component: AdminDashboardComponent },
   {path: 'admin-amenity-config', component: AdminAmenityManagementComponent },
-  {path: 'registered-users', component: AdminRegisteredUsersComponent }
+  {path: 'registered-users', component: AdminRegisteredUsersComponent },
+  {path: 'payment', component: AdminPaymentsComponent }
 ];
 
 @NgModule({

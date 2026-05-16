@@ -29,4 +29,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: inherit !important;
 }
 
+.error-snackbar {
+  --mdc-snackbar-container-color: #d32f2f; /* For Angular 15+ (MDC) */
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  
+  /* Fallbacks for older Angular Material versions */
+  background-color: #d32f2f !important;
+  color: white !important;
+  
+  .mat-mdc-snack-bar-label {
+    color: white !important;
+  }
+}
+
+.success-snackbar {
+  // Modern Angular Material (v15+) CSS variables
+  --mdc-snackbar-container-color: #2e7d32; /* Beautiful Material Green */
+  --mdc-snackbar-supporting-text-color: #ffffff;
+  
+  // Fallbacks for older Angular Material versions
+  background-color: #2e7d32 !important;
+  color: white !important;
+  
+  .mat-mdc-snack-bar-label {
+    color: white !important;
+  }
+}
 

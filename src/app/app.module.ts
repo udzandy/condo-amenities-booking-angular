@@ -39,6 +39,8 @@ import { UnitDialogComponent } from './components/unit-dialog/unit-dialog.compon
 import { SlotDialogComponent } from './components/slot-dialog/slot-dialog.component';
 import { AdminRegisteredUsersComponent } from './pages/admin-registered-users/admin-registered-users.component';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { AdminPaymentsComponent } from './pages/admin-payments/admin-payments.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
     UnitDialogComponent,
     SlotDialogComponent,
     AdminRegisteredUsersComponent,
-    UserDialogComponent
+    UserDialogComponent,
+    AdminPaymentsComponent,
+    PaymentDialogComponent,
   ],
   imports: [
     ReactiveFormsModule,

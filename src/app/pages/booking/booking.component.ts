@@ -407,6 +407,8 @@ export class BookingComponent implements OnInit {
                 '',
                 {
                   duration: 3000,
+                  horizontalPosition: 'right',
+                  verticalPosition: 'top',
                   panelClass: ['snackbar-success']
                 });
 
@@ -422,7 +424,10 @@ export class BookingComponent implements OnInit {
           err?.error?.message || 'Failed to book',
           '',
           {
-            duration: 3000
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar']
           });
       }
     });

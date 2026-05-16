@@ -8,7 +8,8 @@
         <th>Unit</th>
         <th>Date</th>
         <th>Time</th>
-        <th>Action</th>
+        <th *ngIf="this.userRole != 'Admin'">Action</th>
+        <th>Booking Status</th>
       </tr>
     </thead>
     <tbody>
@@ -17,7 +18,7 @@
         <td>{{ booking.unitName }}</td>
         <td>{{ booking.bookingDate }}</td>
         <td>{{ booking.timeSlot }}</td>
-        <td>
+        <td *ngIf="this.userRole != 'Admin'">
           <button 
             mat-raised-button 
             color="warn" 
@@ -26,6 +27,7 @@
             Cancel
           </button>
         </td>
+        <td>{{ booking.status }}</td>
       </tr>
     </tbody>
   </table>

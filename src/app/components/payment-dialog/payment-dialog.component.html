@@ -1,0 +1,149 @@
+<h2 mat-dialog-title>
+
+  Booking Payment
+
+</h2>
+
+<mat-dialog-content>
+
+  <div class="form-grid">
+
+    <!-- BOOKING ID -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Booking ID</mat-label>
+
+      <input
+        matInput
+        [value]="model.bookingId"
+        disabled>
+
+    </mat-form-field>
+
+    <!-- USER -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>User</mat-label>
+
+      <input
+        matInput
+        [value]="model.userName"
+        disabled>
+
+    </mat-form-field>
+
+    <!-- AMENITY -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Amenity</mat-label>
+
+      <input
+        matInput
+        [value]="model.amenityName"
+        disabled>
+
+    </mat-form-field>
+
+    <!-- UNIT -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Unit</mat-label>
+
+      <input
+        matInput
+        [value]="model.unitName"
+        disabled>
+
+    </mat-form-field>
+
+    <!-- SLOT -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Time Slot</mat-label>
+
+      <input
+        matInput
+        [value]="model.slotTime"
+        disabled>
+
+    </mat-form-field>
+
+    <!-- DATE -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Booking Date</mat-label>
+
+      <input
+        matInput
+        [value]="model.bookingDate | date:'dd MMM yyyy'"
+        disabled>
+
+    </mat-form-field>
+
+    <!-- PAYMENT METHOD -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Payment Method</mat-label>
+
+      <mat-select [(ngModel)]="model.paymentMethod">
+
+        <mat-option [value]="paymentMethodEnum.Cash">
+          Cash
+        </mat-option>
+
+        <mat-option [value]="paymentMethodEnum.Card">
+          Card
+        </mat-option>
+
+        <mat-option [value]="paymentMethodEnum.PayNow">
+          PayNow
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- AMOUNT -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>Amount</mat-label>
+
+      <input
+        matInput
+        type="number"
+        [(ngModel)]="model.amount">
+
+    </mat-form-field>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    mat-dialog-close>
+
+    Cancel
+
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="payNow()">
+
+    Confirm Payment
+
+  </button>
+
+</mat-dialog-actions>

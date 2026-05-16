@@ -174,7 +174,16 @@ export class BookingService {
   getMyBookings(userId: string): Observable<Booking[]> {
 
     return this.http.get<Booking[]>(
-      `${this.apiUrl}/user/${userId}`
+      `${this.apiUrl}/getUserBookings/${userId}`
+    );
+
+  }
+
+  // GET ALL BOOKINGS
+  getAllBookings(userId: string): Observable<Booking[]> {
+
+    return this.http.get<Booking[]>(
+      `${this.apiUrl}/getAllBookings`
     );
 
   }

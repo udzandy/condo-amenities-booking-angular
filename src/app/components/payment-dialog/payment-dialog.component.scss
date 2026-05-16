@@ -1,0 +1,74 @@
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 400px;
+  padding-top: 10px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  padding-top: 10px;
+}
+
+mat-dialog-actions {
+  padding-top: 16px;
+}
+
+button[mat-raised-button] {
+  min-width: 100px;
+}
+
+/* ===================================================== */
+/* FORM GRID */
+/* ===================================================== */
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 16px;
+
+  margin-top: 10px;
+}
+
+/* ===================================================== */
+/* FORM FIELD */
+/* ===================================================== */
+
+mat-form-field {
+  width: 100%;
+}
+
+/* ===================================================== */
+/* DIALOG TITLE */
+/* ===================================================== */
+
+h2[mat-dialog-title] {
+  color: #1e4d4f;
+  font-size: 24px;
+  font-weight: bold;
+
+  margin-bottom: 10px;
+}
+
+/* ===================================================== */
+/* DISABLED INPUT STYLE */
+/* ===================================================== */
+
+input[disabled] {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* ===================================================== */
+/* ACTION BUTTONS */
+/* ===================================================== */
+
+mat-dialog-actions button {
+  margin-left: 10px;
+}

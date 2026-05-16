@@ -19,9 +19,10 @@ export class AdminRegisteredUsersComponent implements OnInit{
     'profile',
     'fullName',
     'email',
-    'phoneNumber',
-    'unitNo',
-    'role',
+    'mobile',
+    'block',
+    'floor',
+    'unit',
     'status',
     'actions'
   ];

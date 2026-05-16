@@ -25,12 +25,13 @@
     <thead>
 
       <tr>
-        <th>Profile</th>
+        <!-- <th>Profile</th> -->
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
+        <th>Block</th>
+        <th>Floor</th>
         <th>Unit No</th>
-        <th>Role</th>
         <th>Status</th>
         <th>Approval</th>
         <th>Actions</th>
@@ -41,24 +42,12 @@
     <tbody>
 
       <tr *ngFor="let user of users">
-
-        <td>
-
-          <img
-            [src]="user.profileImage || 'assets/no-user.png'"
-            class="thumb">
-
-        </td>
-
         <td>{{ user.fullName }}</td>
-
         <td>{{ user.email }}</td>
-
-        <td>{{ user.phoneNumber }}</td>
-
-        <td>{{ user.unitNo }}</td>
-
-        <td>{{ user.role }}</td>
+        <td>{{ user.mobile }}</td>
+        <td>{{ user.block }}</td>
+        <td>{{ user.floor }}</td>
+        <td>{{ user.unit }}</td>
 
         <td>
 
