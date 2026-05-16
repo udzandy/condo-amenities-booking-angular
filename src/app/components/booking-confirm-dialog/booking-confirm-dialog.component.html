@@ -27,10 +27,10 @@
     <input matInput [value]="data.time" disabled>
   </mat-form-field>
 
-  <mat-checkbox [(ngModel)]="accepted">
+  <!-- <mat-checkbox [(ngModel)]="accepted">
     I agree to the
     <a href="#" target="_blank">Terms & Conditions</a>
-  </mat-checkbox>
+  </mat-checkbox> -->
 
 </mat-dialog-content>
 
@@ -39,8 +39,8 @@
   <button
     mat-raised-button
     color="primary"
-    [disabled]="!accepted"
-    (click)="confirm()">
+    (click)="confirm()"> 
+    <!-- [disabled]="!accepted" -->
     Save
   </button>
 </mat-dialog-actions>

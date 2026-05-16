@@ -14,10 +14,44 @@
 
   <mat-card class="config-card">
 
-    <div class="card-header">
+    <!-- <div class="card-header">
 
       <h2 *ngIf="userRole == 'Admin'">Booking History</h2>
       <h2 *ngIf="userRole != 'Admin'">My Booking History</h2>
+
+    </div> -->
+
+    <div class="card-header">
+
+      <h2 *ngIf="userRole == 'Admin'">
+        Booking History
+      </h2>
+
+      <h2 *ngIf="userRole != 'Admin'">
+        My Booking History
+      </h2>
+
+      <!-- SEARCH -->
+
+      <mat-form-field
+        appearance="outline"
+        class="search-box">
+
+        <mat-label>
+          Search Bookings
+        </mat-label>
+
+        <input
+          matInput
+          [(ngModel)]="searchText"
+          (keyup)="filterBookings()"
+          placeholder="Search...">
+
+        <mat-icon matSuffix>
+          search
+        </mat-icon>
+
+      </mat-form-field>
 
     </div>
 
@@ -86,7 +120,8 @@
 
             <span
               [class.active]="booking.status == 'Confirmed'"
-              [class.inactive]="booking.status != 'Confirmed'">
+              [class.inactive]="booking.status == 'Cancelled'"
+              [class.pending]="booking.status == 'Pending'">
 
               {{ booking.status }}
 

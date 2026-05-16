@@ -3,9 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingConfirmDialogComponent } from '../../components/booking-confirm-dialog/booking-confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { Booking, BookingService } from '../booking/booking.service';
 import { BookingService } from '../booking/booking.service';
-import { AmenityBookingConfig, BookedSlot } from 'src/app/models/booking.model';
+import { AmenityBookingConfig } from 'src/app/models/booking.model';
 import { CreateBookingRequest } from 'src/app/models/create-booking.model';
 
 @Component({
@@ -17,14 +16,9 @@ export class BookingComponent implements OnInit {
 
   availabilityData: any[] = [];
   amenity!: string;
-  // selectedDate: Date | null = null;
-  // currentAmenity: any;
-  // selectedSlot: { unit: string; time: string } | null = null;
-
   amenitySlug!: string;
   selectedDate: Date = new Date();
   currentAmenity!: AmenityBookingConfig;
-  // selectedSlot: { unit: string; time: string } | null = null;
   selectedSlot: {unitId: number; unit: string; slotId: number; time: string; } | null = null;
 
   constructor(
@@ -38,9 +32,7 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
   // Subscribe to route param changes
   this.route.paramMap.subscribe(params => {
-    // this.amenity = params.get('amenity')!;
     this.amenitySlug = params.get('amenity')!;
-    // this.currentAmenity = this.amenityConfig[this.amenity];
 
     console.log(this.amenitySlug);
 
@@ -62,26 +54,6 @@ export class BookingComponent implements OnInit {
     const d = date.getDate().toString().padStart(2, '0');
     return `${y}-${m}-${d}`;
   }
-
-  // -------------------
-  // Filter for mat-calendar: disables previous dates and fully booked dates
-  // dateFilter = (date: Date | null): boolean => {
-  //   if (!date) return false;
-
-  //   const today = new Date();
-  //   today.setHours(0,0,0,0);
-
-  //   if (date < today) return false;
-
-  //   const dateStr = this.formatDateLocal(date);
-  //   const bookedSlots = this.currentAmenity.bookedSlots[dateStr] || [];
-
-  //   const allSlots = this.currentAmenity.units.flatMap((unit: any) =>
-  //     unit.slots.map((slot: any) => ({ unit: unit.name, time: slot.time }))
-  //   );
-
-  //   return bookedSlots.length < allSlots.length;
-  // };
 
   dateFilter = (date: Date | null): boolean => {
     if (!date) return false;
@@ -108,39 +80,12 @@ export class BookingComponent implements OnInit {
 
   // -------------------
   onDateSelected(date: Date | null) {
-    // if (date) this.selectedDate = date;
 
     if (!date) return;
 
     this.selectedDate = date;
     this.loadAmenityConfig(); // reload slots per date
-    // this.loadAvailability();
   }
-
-  // -------------------
-  // Check if a slot is booked for selectedDate
-  // isSlotBooked(date: Date | null, unit: string, time: string): boolean {
-  //   if (!date) return true;
-
-  //   const dateStr = this.formatDateLocal(date);
-  //   //const bookedSlots = this.currentAmenity.bookedSlots[dateStr] || [];
-
-  //   //return bookedSlots.some((b: any) => b.unit === unitName && b.time === slotTime);
-
-  //   return (
-  //   this.currentAmenity.bookedSlots?.[dateStr]?.some(
-  //     (b: any) => b.unit === unit && b.time === time
-  //   ) //|| this.bookingService.isBooked(this.amenity, dateStr, unit, time)
-  // );
-  // }
-
-  // isSlotBooked(unit: string, time: string): boolean {
-  //   const dateStr = this.formatDateLocal(this.selectedDate);
-
-  //   return this.currentAmenity?.bookedSlots?.[dateStr]?.some(
-  //     (b: BookedSlot) => b.unit === unit && b.time === time
-  //   ) ?? false;
-  // }
 
   isSlotBooked(date: Date | null, unit: string, time: string): boolean {
 
@@ -174,16 +119,6 @@ export class BookingComponent implements OnInit {
     return '';
   }
 
-  // -------------------
-  // selectSlot(unit: string, time: string) {
-  //   if (!this.selectedDate) return;
-  //   this.selectedSlot = { unit, time };
-  // }
-
-  // selectSlot(unit: string, time: string): void {
-  //   this.selectedSlot = { unit, time };
-  // }
-
   selectSlot(unit: any, slot: any): void {
 
     this.selectedSlot = {
@@ -201,27 +136,6 @@ export class BookingComponent implements OnInit {
       this.selectedSlot?.time === time
     );
   }
-
-  // -------------------
-  // openConfirmDialog() {
-  //   const dialogRef = this.dialog.open(BookingConfirmDialogComponent, {
-  //     width: '420px',
-  //     data: {
-  //       // date: this.selectedDate,
-  //       // slot: this.selectedSlot
-  //       amenityLabel: this.currentAmenity.unitsLabel,
-  //       unit: this.selectedSlot!.unit,
-  //       time: this.selectedSlot!.time,
-  //       date: this.selectedDate
-  //     }
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(confirmed => {
-  //     if (confirmed) {
-  //       this.saveBooking();
-  //     }
-  //   });
-  // }
 
   openConfirmDialog(): void {
     if (!this.selectedSlot) return;
@@ -243,37 +157,10 @@ export class BookingComponent implements OnInit {
     });
   }
 
-  // saveBooking() {
-  // // const ruleCheck = this.bookingService.canBook(
-  // //   this.amenity,
-  // //   this.selectedDate!
-  // // );
-
-  // // if (!ruleCheck.allowed) {
-  // //   this.snackBar.open(ruleCheck.message!, '', {
-  // //     duration: 4000,
-  // //     verticalPosition: 'top',
-  // //     horizontalPosition: 'right',
-  // //     panelClass: ['snackbar-warning']
-  // //   });
-  //   return;
-  // }
-
   saveBooking(): void {
     if (!this.selectedSlot) return;
 
     const userId = localStorage.getItem('userId') ?? '';
-
-    // const payload : CreateBookingRequest = {
-    //   amenitySlug: this.amenitySlug,
-    //   date: this.formatDateLocal(this.selectedDate),
-    //   unit: this.selectedSlot.unit,
-    //   time: this.selectedSlot.time,
-    //   userId: "",
-    //   amenityId: 0,
-    //   startTime: "",
-    //   endTime: ""
-    // };
 
     const payload: CreateBookingRequest = {
     userId: userId,
@@ -287,13 +174,6 @@ export class BookingComponent implements OnInit {
 
     this.bookingService.createBooking(payload).subscribe({
       next: (response) => {
-        // this.snackBar.open('Booking confirmed!', '', {
-        //   duration: 3000
-        // });
-
-        // this.selectedSlot = null;
-        // this.loadAmenityConfig(); // refresh availability
-
         this.snackBar.open(
                 response.message,
                 '',
@@ -328,32 +208,6 @@ export class BookingComponent implements OnInit {
     });
   }
 
-  // const dateStr = this.formatDateLocal(this.selectedDate!);
-
-  // const booking: Booking = {
-  //   amenity: this.amenity,
-  //   date: dateStr,
-  //   unit: this.selectedSlot!.unit,
-  //   time: this.selectedSlot!.time
-  // };
-
-  // this.bookingService.saveBooking(booking);
-
-  // this.bookingService.saveBooking(this.amenity, dateStr, {
-  //   unit: this.selectedSlot!.unit,
-  //   time: this.selectedSlot!.time
-  // });
-
-  // this.snackBar.open('Booking confirmed successfully!', '', {
-  //   duration: 3000,
-  //   verticalPosition: 'top',
-  //   horizontalPosition: 'right',
-  //   panelClass: ['snackbar-success']
-  // });
-
-  // this.selectedSlot = null;
-// }
-
   loadAmenityConfig() {
     const dateStr = this.formatDateLocal(this.selectedDate!);
 
@@ -364,8 +218,6 @@ export class BookingComponent implements OnInit {
           this.currentAmenity = data;
           this.selectedSlot = null;
 
-          // LOAD AVAILABILITY
-          // this.loadAvailability();
         },
         error: (err) => {
           console.error(err);
@@ -375,13 +227,6 @@ export class BookingComponent implements OnInit {
         }
       });
   }
-
-  //   onDateSelected(date: Date | null) {
-  //   if (!date) return;
-
-  //   this.selectedDate = date;
-  //   this.loadAmenityConfig(); // 🔥 reload slots for new date
-  // }
 
   loadAvailability(): void {
 
@@ -425,9 +270,7 @@ export class BookingComponent implements OnInit {
 
     this.currentAmenity.units.forEach(unit => {
 
-      const apiUnit = this.availabilityData.find(
-        x => x.unitName === unit.name
-      );
+      const apiUnit = this.availabilityData.find(x => x.unitName === unit.name);
 
       if (!apiUnit) return;
 

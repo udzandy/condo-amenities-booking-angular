@@ -71,6 +71,11 @@
   font-weight: bold;
 }
 
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
 .empty-state {
   text-align: center;
   padding: 40px;
@@ -80,4 +85,12 @@
 button[disabled] {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.search-box {
+  width: 320px;
+}
+
+.search-box ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
 }

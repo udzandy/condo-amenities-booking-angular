@@ -1,57 +1,72 @@
 <div class="booking-page">
 
-  <h2>{{ currentAmenity.title }}</h2>
+  <!-- TITLE -->
+  <h2 class="page-title">
+    {{ currentAmenity.title }}
+  </h2>
 
-  <!-- DATE -->
-  <div class="date-section">
+  <!-- TOP LAYOUT -->
+  <div class="top-layout">
+
+    <!-- CALENDAR -->
     <mat-card class="calendar-card">
+
       <mat-calendar
         [dateFilter]="dateFilter"
         [dateClass]="dateClass"
         [selected]="selectedDate"
         (selectedChange)="onDateSelected($event)">
       </mat-calendar>
+
     </mat-card>
-  </div>
 
-  <!-- UNITS & SLOTS -->
-  <div *ngFor="let unit of currentAmenity.units" class="unit-block">
-    <h3>{{ unit.name }}</h3>
-    <!-- <h3>{{ currentAmenity.unitsLabel }} - {{ unit.name }}</h3> -->
+    <!-- UNIT LIST -->
+    <div class="units-container">
 
-    <div class="slots">
-      <!-- <button
-        *ngFor="let slot of unit.slots"
-        [disabled]="isSlotBooked(selectedDate, unit.name, slot.time)"
-        [class.available]="!isSlotBooked(selectedDate, unit.name, slot.time)"
-        [class.available]="isSelectedSlot(unit.name, slot.time)"
-        [class.unavailable]="isSlotBooked(selectedDate, unit.name, slot.time)"
-        (click)="selectSlot(unit.name, slot.time)">
-        {{ slot.time }}
-      </button> -->
+      <mat-card
+        class="unit-card"
+        *ngFor="let unit of currentAmenity.units">
 
-      <!-- [disabled]="isSlotBooked(selectedDate, unit.name, slot.time)" -->
-      <button
-        *ngFor="let slot of unit.slots"
-        [disabled]="!slot.available"
-        [class.available]="isSelectedSlot(unit.name, slot.time)"
-        [class.unavailable]="!slot.available"
-        (click)="selectSlot(unit, slot)">
-        {{ slot.time }}
-      </button>
+        <!-- UNIT TITLE -->
+        <div class="unit-header">
+          {{ unit.name }}
+        </div>
+
+        <!-- SLOT BUTTONS -->
+        <div class="slots">
+
+          <button
+            *ngFor="let slot of unit.slots"
+            [disabled]="!slot.available"
+            [class.selected-slot]="isSelectedSlot(unit.name, slot.time)"
+            [class.unavailable]="!slot.available"
+            (click)="selectSlot(unit, slot)">
+
+            {{ slot.time }}
+
+          </button>
+
+        </div>
+
+      </mat-card>
+
     </div>
+
   </div>
 
   <!-- BOOK BUTTON -->
   <div class="book-btn">
+
     <button
       mat-raised-button
       color="primary"
       [disabled]="!selectedDate || !selectedSlot"
       (click)="openConfirmDialog()">
+
       Book Now
+
     </button>
+
   </div>
 
 </div>
-

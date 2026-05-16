@@ -16,6 +16,8 @@ export class MyBookingsComponent implements OnInit {
 
   userId = '';
   userRole = '';
+  searchText: string = '';
+  allBookings: Booking[] = [];
 
   constructor(
     private bookingService: BookingService,
@@ -33,54 +35,173 @@ export class MyBookingsComponent implements OnInit {
   }
 
   // LOAD BOOKINGS FROM API
+  // loadBookings() {
+
+  //   if (this.userRole === 'Admin')
+  //   {
+  //     console.log('Admin Load Booking');
+
+  //     this.bookingService
+  //     .getAllBookings(this.userId)
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.myBookings = response;
+  //       },
+  //       error: (err) => {
+  //         console.log(err);
+  //         this.snackBar.open(
+  //           'Failed to load bookings',
+  //           '',
+  //           {
+  //             duration: 3000,
+  //             horizontalPosition: 'right',
+  //             verticalPosition: 'top',
+  //             panelClass: ['error-snackbar']
+  //           });
+  //       }
+  //     });
+  //   }
+  //   else{
+  //     this.bookingService
+  //     .getMyBookings(this.userId)
+  //     .subscribe({
+  //       next: (response) => {
+  //         this.myBookings = response;
+  //       },
+  //       error: (err) => {
+  //         console.log(err);
+  //         this.snackBar.open(
+  //           'Failed to load bookings',
+  //           '',
+  //           {
+  //             duration: 3000,
+  //             horizontalPosition: 'right',
+  //             verticalPosition: 'top',
+  //             panelClass: ['error-snackbar']
+  //           });
+  //       }
+  //     });
+  //   }
+  // }
+
   loadBookings() {
 
-    if (this.userRole === 'Admin')
-    {
-      console.log('Admin Load Booking');
+  if (this.userRole === 'Admin')
+  {
+    this.bookingService
+    .getAllBookings(this.userId)
+    .subscribe({
 
-      this.bookingService
-      .getAllBookings(this.userId)
-      .subscribe({
-        next: (response) => {
-          this.myBookings = response;
-        },
-        error: (err) => {
-          console.log(err);
-          this.snackBar.open(
-            'Failed to load bookings',
-            '',
-            {
-              duration: 3000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: ['error-snackbar']
-            });
-        }
-      });
-    }
-    else{
-      this.bookingService
-      .getMyBookings(this.userId)
-      .subscribe({
-        next: (response) => {
-          this.myBookings = response;
-        },
-        error: (err) => {
-          console.log(err);
-          this.snackBar.open(
-            'Failed to load bookings',
-            '',
-            {
-              duration: 3000,
-              horizontalPosition: 'right',
-              verticalPosition: 'top',
-              panelClass: ['error-snackbar']
-            });
-        }
-      });
-    }
+      next: (response) => {
+
+        this.allBookings = response;
+        this.myBookings = response;
+
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+        this.snackBar.open(
+          'Failed to load bookings',
+          '',
+          {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar']
+          });
+
+      }
+
+    });
   }
+  else {
+
+    this.bookingService
+    .getMyBookings(this.userId)
+    .subscribe({
+
+      next: (response) => {
+
+        this.allBookings = response;
+        this.myBookings = response;
+
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+        this.snackBar.open(
+          'Failed to load bookings',
+          '',
+          {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar']
+          });
+
+      }
+
+    });
+
+  }
+}
+
+
+  filterBookings(): void {
+
+  const search = this.searchText.toLowerCase().trim();
+
+  if (!search) {
+
+    this.myBookings = this.allBookings;
+    return;
+
+  }
+
+  this.myBookings = this.allBookings.filter((booking: any) =>
+
+    (booking.userName || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.amenityName || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.unitName || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.status || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.bookingDate || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    (booking.timeSlot || '')
+      .toLowerCase()
+      .includes(search)
+
+  );
+
+}
 
   cancelBooking(booking: Booking) {
     const dialogRef = this.dialog.open(
