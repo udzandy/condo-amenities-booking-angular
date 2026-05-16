@@ -78,3 +78,11 @@
   color: orange;
   font-weight: bold;
 }
+
+.search-field {
+  width: 320px;
+}
+
+.search-field ::ng-deep .mat-form-field-wrapper {
+  margin-bottom: -1.25em;
+}

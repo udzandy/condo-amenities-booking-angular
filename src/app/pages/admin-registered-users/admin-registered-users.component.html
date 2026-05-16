@@ -4,7 +4,7 @@
 
 <mat-card class="config-card">
 
-  <div class="card-header">
+  <!-- <div class="card-header">
 
     <h2>Registered Users</h2>
 
@@ -16,7 +16,35 @@
       <mat-icon>add</mat-icon>
       Add User
 
-    </button> -->
+    </button>
+
+  </div> -->
+
+  <div class="card-header">
+
+    <h2>Registered Users</h2>
+
+    <!-- SEARCH BOX -->
+
+    <mat-form-field
+      appearance="outline"
+      class="search-field">
+
+      <mat-label>
+        Search Users
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="searchText"
+        (keyup)="filterUsers()"
+        placeholder="Search by name, email, phone...">
+
+      <mat-icon matSuffix>
+        search
+      </mat-icon>
+
+    </mat-form-field>
 
   </div>
 
@@ -41,7 +69,8 @@
 
     <tbody>
 
-      <tr *ngFor="let user of users">
+      <!-- <tr *ngFor="let user of users"> -->
+      <tr *ngFor="let user of filteredUsers">
         <td>{{ user.fullName }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.mobile }}</td>

@@ -14,8 +14,9 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class AdminRegisteredUsersComponent implements OnInit{
 
   users: any[] = [];
-
   loading: boolean = false;
+  filteredUsers: any[] = [];
+  searchText: string = '';
 
   displayedColumns: string[] = [
     'profile',
@@ -47,29 +48,113 @@ export class AdminRegisteredUsersComponent implements OnInit{
   // =====================================================
 
   loadUsers(): void {
-
     this.loading = true;
-
     this.service.getUsers().subscribe({
-
       next: (response: any) => {
-
         this.users = response;
-        this.loading = false;
 
+        // DEFAULT TABLE DATA
+      this.filteredUsers = response;
+
+        this.loading = false;
       },
-
       error: (error: any) => {
-
         console.error('Load users error:', error);
-
         this.loading = false;
-
       }
-
     });
 
   }
+
+//   filterUsers(): void {
+
+//   const search = this.searchText.toLowerCase().trim();
+
+//   this.filteredUsers = this.users.filter(user =>
+
+//     (user.fullName || '')
+//       .toLowerCase()
+//       .includes(search)
+
+//     ||
+
+//     (user.email || '')
+//       .toLowerCase()
+//       .includes(search)
+
+//     ||
+
+//     (user.mobile || '')
+//       .toLowerCase()
+//       .includes(search)
+
+//     ||
+
+//     (user.block || '')
+//       .toLowerCase()
+//       .includes(search)
+
+//     ||
+
+//     (user.floor || '')
+//       .toLowerCase()
+//       .includes(search)
+
+//     ||
+
+//     (user.unit || '')
+//       .toLowerCase()
+//       .includes(search)
+
+//   );
+
+// }
+
+filterUsers(): void {
+
+  const search = this.searchText
+    .toLowerCase()
+    .trim();
+
+  this.filteredUsers = this.users.filter(user =>
+
+    String(user.fullName || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    String(user.email || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    String(user.mobile || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    String(user.block || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    String(user.floor || '')
+      .toLowerCase()
+      .includes(search)
+
+    ||
+
+    String(user.unit || '')
+      .toLowerCase()
+      .includes(search)
+
+  );
+
+}
 
   // ============================================
     // DIALOGS
